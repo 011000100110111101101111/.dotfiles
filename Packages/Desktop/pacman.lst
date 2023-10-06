@@ -35,7 +35,6 @@ grim
 grub
 gst-libav
 gst-plugins-ugly
-hyprland
 intel-ucode
 jupyter-notebook
 kitty
@@ -60,6 +59,7 @@ noto-fonts-emoji
 noto-fonts-extra
 ntfs-3g
 nvidia-dkms
+obs-studio
 openresolv
 pacman-contrib
 pipewire-alsa

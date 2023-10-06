@@ -2,6 +2,7 @@ less
 libva
 network-manager-applet
 nvidia-dkms
+obs-studio
 rofi
 seatd
 unzip
