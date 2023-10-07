@@ -85,6 +85,7 @@ button {
 
 #clock,
 #tray,
+#custom-github,
 #custom-power,
 #custom-weather,
 #custom-wireguard,
@@ -193,9 +194,42 @@ label:focus {
 /*************************************************************************/
 
 
+#custom-github {
+  color: red;
+}
+
 
 #custom-wireguard {
   color: #003300;
   font-weight: bold;
   background-color: #afb97a;
+}
+
+
+#custom-weather.severe {
+    color: #eb937d;
+}
+
+#custom-weather.sunnyDay {
+    color: #c2ca76;
+}
+
+#custom-weather.clearNight {
+    color: #2b2b2a;
+}
+
+#custom-weather.cloudyFoggyDay, #custom-weather.cloudyFoggyNight {
+    color: #c2ddda;
+}
+
+#custom-weather.rainyDay, #custom-weather.rainyNight {
+    color: #5aaca5;
+}
+
+#custom-weather.showyIcyDay, #custom-weather.snowyIcyNight {
+    color: #d6e7e5;
+}
+
+#custom-weather.default {
+    color: #dbd9d8;
 }

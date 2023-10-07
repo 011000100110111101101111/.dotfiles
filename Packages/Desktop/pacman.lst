@@ -1,5 +1,6 @@
 alsa-firmware
 alsa-utils
+ansible-core
 arch-audit
 base
 base-devel
@@ -35,7 +36,9 @@ grim
 grub
 gst-libav
 gst-plugins-ugly
+hyprland
 intel-ucode
+jq
 jupyter-notebook
 kitty
 less
@@ -67,6 +70,7 @@ pipewire-pulse
 pkgfile
 pyenv
 python-pipenv
+python-pyquery
 qemu-desktop
 qt5-wayland
 qt5ct

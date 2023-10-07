@@ -4,7 +4,7 @@
     "output": "DP-1",
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["pulseaudio", "custom/media", "cava"],
-    "modules-right": ["tray","custom/wireguard","custom/notification", "custom/weather","clock", "custom/power"],
+    "modules-right": ["tray","custom/github","custom/wireguard","custom/notification", "custom/weather","clock", "custom/power"],
     "margin-top": 5,
     "margin-left": 10,
     "margin-right": 10,
@@ -12,8 +12,11 @@
 
 
 
-
-
+    "custom/github": {
+        "format": "{} ",
+        "interval": 60,
+        "exec": "$HOME/.config/waybar/scripts/github.sh"
+    },
 
     "custom/media": {
         "format": "{icon} {}",
@@ -77,12 +80,21 @@
 
 
     "custom/weather": {
+      "exec": "python ~/.config/waybar/scripts/weather.py",
+      "restart-interval": 300,
+      "return-type": "json",
+      "on-click": "xdg-open https://weather.com/en-IN/weather/today/l/$(location_id)"
+    // "format-alt": "{alt}",
+      },
+    /*
+    "custom/weather": {
     "exec": "~/.config/waybar/scripts/get_weather.sh Boston",
     "return-type": "json",
     "format": "{}",
     "tooltip": true,
     "interval": 1200
     },
+    */
 
     "custom/wireguard": {
         "format": "<big>󰒃 </big>{}",
