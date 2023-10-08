@@ -15,7 +15,8 @@
     "custom/github": {
         "format": "{} ",
         "interval": 60,
-        "exec": "$HOME/.config/waybar/scripts/github.sh"
+        "exec": "$HOME/.config/waybar/scripts/github.sh",
+        "tooltip": false
     },
 
     "custom/media": {
@@ -83,18 +84,8 @@
       "exec": "python ~/.config/waybar/scripts/weather.py",
       "restart-interval": 300,
       "return-type": "json",
-      "on-click": "xdg-open https://weather.com/en-IN/weather/today/l/$(location_id)"
-    // "format-alt": "{alt}",
+      "on-click": "xdg-open https://weather.com/weather/today/l/$(WEATHER_LOCATION_ID)"
       },
-    /*
-    "custom/weather": {
-    "exec": "~/.config/waybar/scripts/get_weather.sh Boston",
-    "return-type": "json",
-    "format": "{}",
-    "tooltip": true,
-    "interval": 1200
-    },
-    */
 
     "custom/wireguard": {
         "format": "<big>󰒃 </big>{}",
@@ -104,9 +95,6 @@
         "interval": 60,
         "return-type": "json"
     },
-
-
-
 
 
     "cava": {

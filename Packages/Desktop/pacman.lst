@@ -37,6 +37,7 @@ grub
 gst-libav
 gst-plugins-ugly
 hyprland
+inotify-tools
 intel-ucode
 jq
 jupyter-notebook

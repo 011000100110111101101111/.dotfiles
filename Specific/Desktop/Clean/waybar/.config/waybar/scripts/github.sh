@@ -5,6 +5,6 @@
 
 test=$(~/.dotfiles/Guides/checkCommits.sh)
 
-if [ "$test" -gt 0 ]; then
+if [ "$test" -eq "1" ]; then
   echo "Uncommitted"
 fi

@@ -5,6 +5,7 @@ libva
 network-manager-applet
 nvidia-dkms
 obs-studio
+python-pyquery
 rofi
 seatd
 unzip

@@ -56,7 +56,7 @@
 
 **Pacman**
 
-    pacman -Syu stow kitty rofi sddm zsh hyprland qt5-wayland qt5ct qt6-wayland wireplumber xdg-desktop-portal-hyprland noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-font-awesome ttf-liberation
+    pacman -Syu stow kitty rofi sddm zsh inotify-tools hyprland qt5-wayland qt5ct qt6-wayland wireplumber xdg-desktop-portal-hyprland noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-font-awesome ttf-liberation
 
 **Yay**
     

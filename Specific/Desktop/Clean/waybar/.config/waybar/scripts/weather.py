@@ -7,8 +7,8 @@ import os
 
 # weather icons
 weather_icons = {
-    "sunnyDay": "滛",
-    "clearNight": "望",
+    "sunnyDay": "",
+    "clearNight": "",
     "cloudyFoggyDay": "",
     "cloudyFoggyNight": "",
     "rainyDay": "",
@@ -59,18 +59,18 @@ icon = (
 temp_feel = html_data(
     "div[data-testid='FeelsLikeSection'] > span > span[data-testid='TemperatureValue']"
 ).text()
-temp_feel_text = f"Feels like {temp_feel}c"
+temp_feel_text = f"Feels like {temp_feel}F"
 # print(temp_feel_text)
 
 # min-max temperature
 temp_min = (
     html_data("div[data-testid='wxData'] > span[data-testid='TemperatureValue']")
-    .eq(0)
+    .eq(1)
     .text()
 )
 temp_max = (
     html_data("div[data-testid='wxData'] > span[data-testid='TemperatureValue']")
-    .eq(1)
+    .eq(0)
     .text()
 )
 temp_min_max = f"  {temp_min}\t\t  {temp_max}"
@@ -78,7 +78,7 @@ temp_min_max = f"  {temp_min}\t\t  {temp_max}"
 
 # wind speed
 wind_speed = html_data("span[data-testid='Wind']").text().split("\n")[1]
-wind_text = f"煮  {wind_speed}"
+wind_text = f"  {wind_speed}"
 # print(wind_text)
 
 # humidity
