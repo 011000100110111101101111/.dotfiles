@@ -29,7 +29,9 @@ M.mason = {
 
     -- web dev stuff
     "css-lsp",
+    "cssls",
     "html-lsp",
+    "html",
     "typescript-language-server",
     "deno",
     "prettier",
@@ -37,6 +39,21 @@ M.mason = {
     -- c/cpp stuff
     "clangd",
     "clang-format",
+
+    -- python
+    "pyright",
+
+    -- markdown
+    "marksman",
+
+    -- scripting
+    "bashls",
+
+    -- automation languages (docker, etc)
+    "ansiblels",
+    "docker_compose_language_service",
+    "dockerls",
+
   },
 }
 

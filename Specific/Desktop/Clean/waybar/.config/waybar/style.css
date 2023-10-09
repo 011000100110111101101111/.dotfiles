@@ -1,7 +1,7 @@
 
 * {
-    font-family: FiraCode Nerd Font;
-    font-size: 15px;
+  font-family: FiraCode Nerd Font;
+  font-size: 15px;
 }
 
 
@@ -12,7 +12,141 @@
 
 
 window#waybar {
-    background-color: rgba(38, 23, 21, .6);
+  background-color: rgba(13, 15, 24, 1);
+  border-radius: 10px;
+}
+
+
+tooltip {
+  background-color: #151720;
+  border: solid 4px black;
+}
+
+tooltip label {
+  color: #ecd3a0;
+  border: dotted 2px lightblue;
+  border-radius: 3px;
+}
+
+#custom-divider
+{
+  border-top: solid 2px lightblue;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+/* general settings for all */ 
+#custom-icon,
+#custom-wireguard,
+#custom-notification,
+#tray,
+#workspaces,
+#custom-weather,
+#clock,
+#custom-power
+{
+  color: #A5b6ce;
+  background-color: #151720;
+  font-weight: bold;
+  font-size: 13px;
+
+  margin-top: 8px;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-bottom: 8px;
+
+  padding-top: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-bottom: 4px;
+  border-radius: 10px;
+}
+
+
+#custom-icon
+{
+  background-color: transparent;
+  font-size: 24px;
+  color: #0F94D2;
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+#custom-wireguard
+{
+  color: #2b8916;
+  background-color: transparent;
+  font-size: 22px;
+  margin-top: -10px;
+  margin-left: 1px;
+  
+}
+
+#cava {
+  color: #ecd3a0;
+}
+
+#custom-media {
+  color: #ecd3a0;
+  margin-bottom: 14px;
+}
+
+#custom-notification
+{
+  background-color: transparent;
+  font-size: 17px;
+  margin-left: 1px;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+
+
+#tray
+{
+  background-color: #151720;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+
+#clock
+{
+  color: #ecd3a0;
+}
+
+#custom-power
+{
+  background-color: transparent;
+  font-size: 18px;
+  color: #ca4f41;
+  padding-left: 0px;
+  margin-top: -10px;
+  padding-top: 0px;
+}
+
+
+
+
+
+
+
+
+
+/*
+window#waybar {
+  margin: 4px 4px 4px 4px;
+  background-color: transparent;
+}
+
+
+window#waybar > box {
+    border-radius: 8px;
+    margin: 4px 4px 4px 4px;
+    background-color: rgba(32, 32, 32, 0.75);
+    box-shadow: 4px 4px 2px 1px #101010;
 }
 
 tooltip {
@@ -24,29 +158,22 @@ tooltip label {
   color: #dbd9d8;
 }
 
-/*************************************************************************/
 
-/*
 button {
     box-shadow: inset 0 -3px transparent;
     border: none;
     border-radius: 0;
 }
-*/
-
-/*************************************************************************/
 
 
 #workspaces button {
     border-radius: 10px;
     transition: ease 0.3s;
-    /*First is top. Second is right Third is bottom. Fourth is either left*/
     padding: 4px 10px 4px 10px;
     color: #82B527; 
 }
 
 
-/*************************************************************************/
 
 
 #workspaces button:hover {
@@ -54,15 +181,11 @@ button {
 }
 
 
-/*************************************************************************/
-
 
 #workspaces button.active {
    color: #e27613;
 }
 
-
-/*************************************************************************/
 
 
 #workspaces button.focused {
@@ -71,7 +194,6 @@ button {
 }
 
 
-/*************************************************************************/
 
 
 #workspaces button.urgent {
@@ -79,15 +201,12 @@ button {
 }
 
 
-/*************************************************************************/
-
 
 #workspaces {
     border-radius: 10px;
 }
 
 
-/*************************************************************************/
 
 
 #clock,
@@ -108,7 +227,6 @@ button {
 }
 
 
-/*************************************************************************/
 
 
 #pulseaudio,
@@ -124,41 +242,12 @@ button {
 }
 
 
-/*************************************************************************/
-
-
-#pulseaudio,
-#custom-media
-{
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    margin-right: 0px;
-}
-
-
-/*************************************************************************/
-
-
-#custom-media,
-#cava,
-#custom-power
-{
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    margin-left: 0px;
-}
-
-
-/*************************************************************************/
-
-
 
 #cava.empty
 {
     background-color: transparent;
 }
 
-/*************************************************************************/
 
 
 #custom-power {
@@ -177,25 +266,20 @@ button {
 #custom-media {
   color: #F4D9A5;
 }
-/*************************************************************************/
 
 
-/* If workspaces is the leftmost module, omit left margin */
 .modules-left {
     padding-right: 150px;
 }
 
 
-/*************************************************************************/
 
 
-/* If workspaces is the rightmost module, omit right margin */
 .modules-right > widget:last-child > #workspaces {
     margin-right: 0;
 }
 
 
-/*************************************************************************/
 
 
 label:focus {
@@ -203,7 +287,6 @@ label:focus {
 }
 
 
-/*************************************************************************/
 
 
 #custom-github {
@@ -213,6 +296,9 @@ label:focus {
 
 #custom-wireguard {
   color: #003300;
+  background-color: grey;
+  margin-top: 6px;
+  margin-bottom: 6px;
 }
 
 
@@ -243,3 +329,4 @@ label:focus {
 #custom-weather.default {
     color: #dbd9d8;
 }
+*/

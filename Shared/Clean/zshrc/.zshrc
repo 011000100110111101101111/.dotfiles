@@ -22,6 +22,8 @@ alias zshrc="nvim ~/.zshrc"
 alias timer="termdown -c 60 -t 'DONE'"
 alias cal="calcure"
 alias top="bpytop"
+alias question="mods"
+alias conversation="mods --continue-last"
 
 alias gaming="sudo virsh start win11"
 alias stopgaming="sudo virsh shutdown win11"

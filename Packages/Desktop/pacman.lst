@@ -57,10 +57,12 @@ neovim
 network-manager-applet
 networkmanager
 networkmanager-openvpn
+nodejs
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
 noto-fonts-extra
+npm
 ntfs-3g
 nvidia-dkms
 obs-studio
@@ -82,6 +84,7 @@ ristretto
 rkhunter
 rofi
 rsync
+rustup
 sddm
 seatd
 sl
@@ -108,6 +111,7 @@ webp-pixbuf-loader
 wget
 wireguard-tools
 wireplumber
+wireshark-qt
 xclip
 xdg-desktop-portal-hyprland
 xorg-xev

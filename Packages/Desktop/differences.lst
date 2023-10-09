@@ -1,8 +1,11 @@
 ansible-core
+inotify-tools
 jq
 less
 libva
 network-manager-applet
+nodejs
+npm
 nvidia-dkms
 obs-studio
 python-pyquery
