@@ -84,7 +84,6 @@ ristretto
 rkhunter
 rofi
 rsync
-rustup
 sddm
 seatd
 sl
@@ -116,5 +115,6 @@ xclip
 xdg-desktop-portal-hyprland
 xorg-xev
 xxhash
+zip
 zoxide
 zsh

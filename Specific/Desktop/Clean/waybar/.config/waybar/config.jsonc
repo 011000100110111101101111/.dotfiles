@@ -3,8 +3,8 @@
     "layer": "top",
     "output": "DP-1",
     "modules-left": ["custom/icon","custom/divider","custom/wireguard"],
-    "modules-center": ["custom/divider","cava","custom/media","custom/divider","custom/notification"],
-    "modules-right": ["tray","custom/weather","clock","custom/divider","custom/power"],
+    "modules-center": ["cava","custom/media"],
+    "modules-right": ["custom/notification","tray","custom/weather","clock","custom/divider","custom/power"],
     "margin": 5,
     "spacing": 4,
 

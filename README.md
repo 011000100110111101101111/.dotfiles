@@ -24,11 +24,9 @@ __Each theme has two versions. The desktop version (multiple monitors) and the l
 
 With Applications
 
-![badLink](Themes/Clean/cleanfullscreen.png)
+![badLink](Themes/Clean/waybarNvim.png)
 
-Empty
-
-![badLink](Themes/Clean/cleanfullscreennothing.png)
+More screenshots coming soon :D
 
 ---
 
