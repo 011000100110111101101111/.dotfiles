@@ -190,6 +190,6 @@ map ctrl+v paste_from_clipboard
 
 
 # BEGIN_KITTY_THEME
-# Gruvbox Light Soft
+# Catppuccin-Mocha
 include current-theme.conf
 # END_KITTY_THEME

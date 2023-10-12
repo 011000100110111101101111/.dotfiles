@@ -10,6 +10,7 @@ carla
 code
 cups
 cups-pdf
+ddcutil
 deepin-printer
 discord
 dmidecode
@@ -78,6 +79,7 @@ qemu-desktop
 qt5-wayland
 qt5ct
 qt6-wayland
+ranger
 reflector
 ripgrep
 ristretto
@@ -89,7 +91,6 @@ seatd
 sl
 slurp
 source-highlight
-spotify-launcher
 steam
 stow
 swayidle

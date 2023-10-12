@@ -9,6 +9,7 @@ npm
 nvidia-dkms
 obs-studio
 python-pyquery
+ranger
 rofi
 seatd
 unzip

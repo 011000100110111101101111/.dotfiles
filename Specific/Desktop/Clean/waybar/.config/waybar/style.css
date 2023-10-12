@@ -134,7 +134,8 @@ tooltip label {
   color: #ca4f41;
   padding-left: 0px;
   margin-top: -10px;
-  padding-top: 0px;
+  padding-top: 4px;
+  padding-left: 2px;
 }
 
 

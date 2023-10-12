@@ -1,5 +1,12 @@
 export ZSH="$HOME/.oh-my-zsh"
 
+# For catac in fzf
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+
+
 pokeget random
 
 ZSH_THEME="robbyrussell"
@@ -18,13 +25,27 @@ alias hosts="nvim $HOME/.local/share/Cryptomator/mnt/Nexus/Documents/Arch/.toks"
 
 # Alias
 
-alias zshrc="nvim ~/.zshrc"
+# ZSH grabbing
+alias zshedit="nvim ~/.zshrc"
+alias zshsource="source ~/.zshrc"
+
+
 alias timer="termdown -c 60 -t 'DONE'"
 alias cal="calcure"
 alias top="bpytop"
+
+# Ranger
+alias rr='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+
+# Spotify-launcher
+alias spotify="spotify_player"
+
+
+# OpenAI
 alias question="mods"
 alias conversation="mods --continue-last"
 
+# Virtmanager
 alias gaming="sudo virsh start win11"
 alias stopgaming="sudo virsh shutdown win11"
 
