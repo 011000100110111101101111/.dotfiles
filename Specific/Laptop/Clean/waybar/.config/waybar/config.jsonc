@@ -1,17 +1,20 @@
 {
-    "position": "top",
+    "position": "left",
     "layer": "top",
-    "modules-left": ["hyprland/workspaces", "tray"],
-    /*"modules-center": ["pulseaudio", "custom/media", "cava"],*/
-    "modules-right": ["custom/wireguard","network","backlight", "battery","custom/notification","custom/weather","clock","custom/power"],
+    "modules-left": ["custom/icon","custom/divider","custom/wireguard","clock", "custom/notification"],
+    /*"modules-center": ["cava","custom/media"],*/
+    "modules-right": ["backlight","tray","battery","custom/weather","custom/divider","custom/power"],
+    "margin": 5,
+    "spacing": 4,
 
-    
+
+
     "battery": {
         "states": {
             "warning": 30,
-            "critical": 15,
+            "critical": 15
         },
-        "format": "<span size='13000' foreground='#8cb6ff'>{icon} </span>{capacity}%",
+        "format": "<span size='13000' foreground='#8cb6ff'>{icon}</span>",
         "format-warning": "<span size='13000' foreground='yellow'>{icon} </span>{capacity}%",
         "format-critical": "<span size='13000' foreground='#ee5396'>{icon} </span>{capacity}%",
         "format-charging": "<span size='13000' foreground='green'>󰂄 </span>{capacity}%",
@@ -25,65 +28,88 @@
 
     "backlight": {
         "device": "intel_backlight",
-        "format": "<span size='13000' foreground='#8cb6ff'>{icon} </span>{percent}%",
+        "format": "<span size='13000' foreground='#8cb6ff'>{icon} </span>",
         "format-icons": ["","󰖨"],
-        "tooltip": false,
+        "tooltip": false
     },
 
 
-    "custom/launcher": {
-        "format": "",
-        "tooltip": false,
-        //"on-click": "do something..."
+    "custom/divider": {
+      "format": " ",
+      "tooltip": false
     },
 
 
-    "custom/power": {
-        "format": "",
-        "on-click": "~/.config/waybar/scripts/wofi-power-menu.sh",
-        "tooltip": false,
+
+    "custom/github": {
+        "rotate": 90,
+        "format": "{} ",
+        "interval": 60,
+        "exec": "$HOME/.config/waybar/scripts/github.sh",
+        "tooltip": false
     },
 
-
-    "custom/weather": {
-        "exec": "~/.config/waybar/scripts/get_weather.sh US+Boston",
-        "return-type": "json",
-        "format": "{}",
-        "tooltip": true,
-        "interval": 1200
+    "custom/icon": {
+      "format": "",
+      "tooltip": false
     },
-
-
-    "custom/updates-pacman-aur": {
-        "exec-on-event": true,
-        "format": "<span foreground='#c4a416'> </span><span foreground='green'></span> {}",
-        "exec": "~/.config/waybar/scripts/updates-pacman-aur.sh",
-        "interval": 300,
-        "on-click": "kitty -c ~/.config/kitty/kitty.conf sh -c 'sudo pacman -Syu ; echo Done - Press enter to exit; read _'",
-        "on-click-right": "kitty -c ~/.config/kitty/kitty.conf sh -c 'yay -Sua --sudoloop ; echo Done - Press enter to exit; read _'",
-        "on-click-middle": "kitty -c ~/.config/kitty/kitty.conf sh -c 'yay -Syu --sudoloop ; echo Done - Press enter to exit; read _'"
-    },
-
 
     "custom/media": {
+        "rotate": 90,
         "format": "{icon} {}",
         "return-type": "json",
-        "max-length": 40,
+        "max-length": 16,
         "format-icons": {
-            "spotify": "<span foreground='#46c880'> </span>",
-            "default": "<span foreground='#8cb6ff'> </span>"
+            "spotify": " ",
+            "youtube": " ",
+            "default": " "
         },
         "escape": true,
-        "exec": "$HOME/.config/waybar/scripts/mediaplayer.py 2> /dev/null",
-        // "exec": "$HOME/.config/waybar/scripts/mediaplayer.py --player spotify 2> /dev/null", // Filter player based on name
+        "exec": "~/.config/waybar/scripts/mediaplayer.py 2> /dev/null",
         "on-click": "playerctl play-pause",
         "on-click-right": "playerctl next",
         "on-click-middle": "playerctl previous"
     },
 
 
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󰂞<span foreground='red'><sup></sup></span>",
+            "none": "<span><sup></sup></span>",
+            "dnd-notification": "<span foreground='red'> <sup></sup></span>",
+            "dnd-none": "<span><sup></sup></span>",
+            "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "inhibited-none": "<span><sup></sup></span>",
+            "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-inhibited-none": "<span><sup></sup></span>"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "sleep 0.1; swaync-client -t -sw",
+        "on-click-right": "sleep 0.1; swaync-client -d -sw",
+        "escape": true
+    },
+
+
+    "custom/power": {
+        "format": "",
+        "on-click": "~/.config/waybar/scripts/logoutlaunch.sh",
+        "tooltip": false
+    },
+
+
+    "custom/weather": {
+      "exec": "python ~/.config/waybar/scripts/weather.py",
+      "restart-interval": 300,
+      "return-type": "json",
+      "on-click": "xdg-open https://weather.com/weather/today/l/$(WEATHER_LOCATION_ID)"
+      },
+
     "custom/wireguard": {
-        "format": "<big>󰒃 </big>{}",
+        "format": "󰒃",
         "exec": "~/.config/waybar/scripts/wireguard.sh",
         "on-click": "rofi -modi 'WireGuard:~/.config/waybar/scripts/wireguard-rofi.sh' -show WireGuard; pkill -SIGRTMIN+6 waybar",
         "signal": 6,
@@ -93,34 +119,35 @@
 
 
     "cava": {
-        //        "cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
-                "framerate": 30,
-                "autosens": 1,
-                "bars": 14,
-                "lower_cutoff_freq": 50,
-                "higher_cutoff_freq": 10000,
-                "method": "pipewire",
-                "source": "auto",
-                "stereo": true,
-                "reverse": false,
-                "bar_delimiter": 0,
-                "monstercat": false,
-                "waves": false,
-                "noise_reduction": 0.77,
-                "input_delay": 2,
-                "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
-                "actions": {
-                           "on-click-right": "mode"
-                           }
-            },
+        "rotate": 90,
+//        "cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
+        "framerate": 30,
+        "autosens": 1,
+        "bars": 8,
+        "lower_cutoff_freq": 50,
+        "higher_cutoff_freq": 10000,
+        "method": "pipewire",
+        "source": "auto",
+        "stereo": true,
+        "reverse": false,
+        "bar_delimiter": 0,
+        "monstercat": false,
+        "waves": false,
+        "noise_reduction": 0.77,
+        "input_delay": 2,
+        "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
+        "actions": {
+                   "on-click-right": "mode"
+                   }
+    },
 
 
     "clock": {
-        "format": "<span foreground='#8cb6ff'> </span>{:%I:%M %p %A}",
+        "format": "{:%a%n%I%n %M}",
         "format-alt": "{:%A, %B %d, %Y (%R)}  ",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
-                    "mode"          : "year",
+                    "mode"          : "month",
                     "mode-mon-col"  : 3,
                     "weeks-pos"     : "right",
                     "on-scroll"     : 1,
@@ -143,16 +170,27 @@
     },
 
 
-    // Modules configuration
     "hyprland/workspaces": {
-        "all-outputs": true,
-        "sort-by-number": true,
+        "rotate": 90,
         "format": "{icon}",
-        "on-click": "activate",
         "format-icons": {
-            "default": "",
-            "urgent": "",
-            "active": ""
+             "1": "󰎥",
+             "2": "󰎨",
+             "3": "󰎫",
+             "4": "󰎲",
+             "5": "󰎯",
+	           "6": "󰎴",
+	           "7": "󰎷",
+             "8": "󰎺",
+             "9": "󰎽",
+	           "10": "󰐼"
+        },
+        "on-click": "activate",
+        "all-outputs": true,
+        "persistent-workspaces": {
+          "DP-1": [ 7, 8, 9 ], // workspace 1 shown on DP-3
+          "DP-2": [ 4, 5, 6 ], // workspaces 2 and 3 shown on DP-1
+          "DP-3": [ 1, 2, 3 ]
         },
         "on-scroll-up": "hyprctl dispatch workspace e-1",
         "on-scroll-down": "hyprctl dispatch workspace e+1"
@@ -160,43 +198,20 @@
 
 
     "network": {
-        "format-wifi": "{icon}  {signalStrength}% <span foreground='#009900'> 󰶡{bandwidthDownBits}</span>",        
-        "format-ethernet": "<span foreground='#ff9900'>󰶣{bandwidthUpBits}</span> <span foreground='#009900'> 󰶡{bandwidthDownBits}</span>",
-        "interval": 2,
+        "format-wifi": "<span size='13000' foreground='#8cb6ff'>{icon}   </span>",
+        "format-ethernet": "<span size='10000' foreground='#ff9900'>󰶣{bandwidthUpBits}</span> <span size='10000' foreground='#009900'> 󰶡{bandwidthDownBits}</span>",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "<span size='13000' foreground='#ee5396'>󰤮   </span>",
         "tooltip-format-wifi": "Connected to: {essid}\nSignal strength: {signalStrength}%",
+        "tooltip-format-ethernet": "IP: {ipaddr}",
         "format-icons": ["󰤟","󰤢","󰤥","󰤨"],
-        "on-click": "xargs -a ~/.config/bemenu/config networkmanager_dmenu"
-    },
-
-
-    "custom/notification": {
-        "tooltip": false,
-        "format": "{icon}",
-        "format-icons": {
-            "notification": "<span foreground='red'><sup></sup></span>",
-            "none": "",
-            "dnd-notification": "<span foreground='red'><sup></sup></span>",
-            "dnd-none": "",
-            "inhibited-notification": "<span foreground='red'><sup></sup></span>",
-            "inhibited-none": "",
-            "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
-            "dnd-inhibited-none": ""
-        },
-        "return-type": "json",
-        "exec-if": "which swaync-client",
-        "exec": "swaync-client -swb",
-        "on-click": "sleep 0.1; swaync-client -t -sw",
-        "on-click-right": "sleep 0.1; swaync-client -d -sw",
-        "escape": true
+        "interval": 2
     },
 
 
     "pulseaudio": {
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-        "on-click-right": "pavucontrol",
-        "format": "<span size='13000' foreground='#8cb6ff'>{icon}</span> {volume}%",
+        "format": "{icon} {volume}%",
         "format-muted": "<span size='14000' foreground='#ff7eb6'></span>",
         "format-icons": {
             "headphone": " ",
@@ -212,8 +227,8 @@
 
     "tray": {
         "icon-size": 16,
-        "spacing": 10
+        "spacing": 16,
+        "show-passive-items": true
     }
-
 
 }

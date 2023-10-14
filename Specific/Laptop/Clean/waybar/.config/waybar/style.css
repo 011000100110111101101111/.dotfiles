@@ -1,87 +1,377 @@
+
 * {
-    border-radius: 0;
-    font-family: BitStreamVeraSansMono Nerd Font;
-    font-size: 11pt;
-    min-height: 0;
+  font-family: FiraCode Nerd Font;
+  font-size: 15px;
 }
 
+
+
+
+
+/*************************************************************************/
+
+
 window#waybar {
-    background: #161616;
-    color: #f2f4f8;
+  background-color: rgba(30, 30, 46, 1);
+  border-radius: 10px;
+}
+
+
+tooltip {
+  background-color: #151720;
+  border: solid 4px black;
+}
+
+tooltip label {
+  color: #ecd3a0;
+  border: dotted 2px lightblue;
+  border-radius: 3px;
+}
+
+#custom-divider
+{
+  border-top: solid 2px lightblue;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+/* general settings for all */ 
+#custom-icon,
+#custom-wireguard,
+#cava,
+#custom-media,
+#backlight,
+#battery,
+#custom-notification,
+#tray,
+#workspaces,
+#custom-weather,
+#clock,
+#custom-power
+{
+  color: #cdd6f4;
+  background-color: #313244;
+  font-weight: bold;
+  font-size: 13px;
+
+  margin-top: 8px;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-bottom: 8px;
+
+  padding-top: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-bottom: 4px;
+  border-radius: 10px;
+
+  border: solid 2px;
+}
+
+
+#custom-icon
+{
+  font-size: 24px;
+  color: #89dceb;
+  padding-right: 13px;
+  padding-bottom: 4px;
+  margin: 6px;
+  margin-top: 10px;
+}
+
+#custom-wireguard
+{
+  color: #2b8916;
+  background-color: transparent;
+  font-size: 22px;
+  margin-top: -10px;
+  margin-left: 1px;
+  
+}
+
+#cava {
+  color: #ecd3a0;
+  padding: 8px;
+}
+
+#cava.empty {
+  background: transparent;
+  border: 0px;
+}
+
+#custom-media {
+  color: #ecd3a0;
+  margin-bottom: 14px;
+  padding: 8px;
+}
+
+#custom-notification
+{
+  font-size: 17px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+
+#tray
+{
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+
+#clock
+{
+  margin-top: -10px;
+  color: #fab387;
+}
+
+#custom-power
+{
+  background-color: transparent;
+  font-size: 18px;
+  color: #ca4f41;
+  padding-left: 0px;
+  margin-top: -10px;
+  padding-top: 4px;
+  padding-left: 2px;
+}
+
+
+
+/* Weather stuff */
+#custom-weather
+{
+  font-size: 15px;
+}
+
+
+#custom-weather.severe {
+    color: #eb937d;
+}
+
+#custom-weather.sunnyDay {
+    color: #bea925;
+}
+
+#custom-weather.clearNight {
+    color: #2b2b2a;
+}
+
+#custom-weather.cloudyFoggyDay, #custom-weather.cloudyFoggyNight {
+    color: #c2ddda;
+}
+
+#custom-weather.rainyDay, #custom-weather.rainyNight {
+    color: #5aaca5;
+}
+
+#custom-weather.showyIcyDay, #custom-weather.snowyIcyNight {
+    color: #d6e7e5;
+}
+
+#custom-weather.default {
+    color: #dbd9d8;
+}
+
+
+
+
+/*
+window#waybar {
+  margin: 4px 4px 4px 4px;
+  background-color: transparent;
+}
+
+
+window#waybar > box {
+    border-radius: 8px;
+    margin: 4px 4px 4px 4px;
+    background-color: rgba(32, 32, 32, 0.75);
+    box-shadow: 4px 4px 2px 1px #101010;
 }
 
 tooltip {
-	background: #161616;
-	border-radius: 15px;
-	border-width: 2px;
-	border-style: solid;
-	border-color: #8cb6ff;
-	}
-
-#workspaces {
-    background: #282828;
-    margin-left: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-radius: 15px;
+  background: rgba(13, 19, 24, 1);
+  border: 2px solid rgba(7, 98, 144, .7);
 }
+
+tooltip label {
+  color: #dbd9d8;
+}
+
+
+button {
+    box-shadow: inset 0 -3px transparent;
+    border: none;
+    border-radius: 0;
+}
+
 
 #workspaces button {
-    padding-left: 5px;
-    padding-right: 10px;
-    min-width: 0;
-    color: #f2f4f8;
+    border-radius: 10px;
+    transition: ease 0.3s;
+    padding: 4px 10px 4px 10px;
+    color: #82B527; 
 }
 
-#workspaces button.active {
-    color: #ff7eb6;
-}
 
-#workspaces button.urgent {
-    color: #be95ff;
-}
+
 
 #workspaces button:hover {
-    background: #282828;
-    border-color: #282828;
-    color: #f16da6;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 
-#workspaces, 
-#tray, 
-#custom-weather, 
-#backlight,
-#battery,
-#network,
-#tray, 
-#custom-updates-pacman-aur,
-#custom-power,
-#custom-launcher,
-#custom-media,
-#custom-wireguard,
-#custom-notification,
-#cava,
-#pulseaudio,
+
+#workspaces button.active {
+   color: #e27613;
+}
+
+
+
+#workspaces button.focused {
+    background-color: #F9BC3C;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+
+
+
+#workspaces button.urgent {
+    color: purple;
+}
+
+
+
+#workspaces {
+    border-radius: 10px;
+}
+
+
+
+
 #clock,
-#custom-weather {
-    background: #282828;
-    color: #f2f4f8;
+#tray,
+#custom-github,
+#custom-power,
+#custom-weather,
+#custom-wireguard,
+#custom-updates-pacman-aur,
+#custom-notification
+{
+    margin-left: 4px;
+    margin-right: 4px;
+    color: #82B527;
     padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    margin-right: 5px;
-    margin-left: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-radius: 15px 15px 15px 15px;
+    padding-right: 12px;
+    border-radius: 10px;
+}
+
+
+
+
+#pulseaudio,
+#custom-media,
+#cava,
+#window
+{
+    transition: ease 0.3s;
+    color: #82B527;
+    padding-left: 10px;
+    padding-right: 12px;
+    border-radius: 10px;
+}
+
+
+
+#cava.empty
+{
+    background-color: transparent;
+}
+
+
+
+#custom-power {
+   color: #F4D9A5;
+   background-color: #180E0F;
+   margin-right: 0;
+   border-radius: 12px 0px 0px 12px;
+}
+
+
+#custom-notification {
+  color: #A48E3A;
 }
 
 
 #custom-media {
-    background: #282828;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-radius: 15px;
+  color: #F4D9A5;
 }
+
+
+.modules-left {
+    padding-right: 150px;
+}
+
+
+
+
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+
+
+
+label:focus {
+    background-color: #000000;
+}
+
+
+
+
+#custom-github {
+  color: #ec5e18;
+}
+
+
+#custom-wireguard {
+  color: #003300;
+  background-color: grey;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+
+#custom-weather.severe {
+    color: #eb937d;
+}
+
+#custom-weather.sunnyDay {
+    color: #c2ca76;
+}
+
+#custom-weather.clearNight {
+    color: #2b2b2a;
+}
+
+#custom-weather.cloudyFoggyDay, #custom-weather.cloudyFoggyNight {
+    color: #c2ddda;
+}
+
+#custom-weather.rainyDay, #custom-weather.rainyNight {
+    color: #5aaca5;
+}
+
+#custom-weather.showyIcyDay, #custom-weather.snowyIcyNight {
+    color: #d6e7e5;
+}
+
+#custom-weather.default {
+    color: #dbd9d8;
+}
+*/
