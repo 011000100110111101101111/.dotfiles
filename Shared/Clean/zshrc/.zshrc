@@ -20,6 +20,13 @@ eval "$(zoxide init zsh --cmd cd)"
 source $HOME/.local/share/Cryptomator/mnt/Nexus/Documents/Arch/.toks
 alias hosts="nvim $HOME/.local/share/Cryptomator/mnt/Nexus/Documents/Arch/.toks"
 
+# TODIST cml
+source "/usr/share/todoist-cli/todoist_functions_fzf.sh"
+alias tds="todoist-cli --color --header --indent list --filter '(today | overdue) & #Education'"
+alias tdp="todoist-cli --color --header --indent list --filter '(today | overdue) & #Personal'"
+alias tda="todoist-cli --color --header --indent list --filter '#Arch'"
+
+
 
 
 
