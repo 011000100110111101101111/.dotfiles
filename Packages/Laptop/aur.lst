@@ -8,6 +8,7 @@ downgrade
 dropbox
 gradience
 librewolf-bin
+mods
 moneymanagerex
 mycli
 nerd-fonts-meta
@@ -27,5 +28,4 @@ ttf-material-design-icons-extended
 ttf-weather-icons
 waybar-hyprland-cava-git
 wlogout
-xdg-desktop-portal-hyprland-git
 yay
