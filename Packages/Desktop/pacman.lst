@@ -34,6 +34,7 @@ git
 glow
 gnome-keyring
 gnome-themes-extra
+gnome-tweaks
 grim
 grub
 gst-libav
@@ -51,7 +52,6 @@ libvirt
 linux
 linux-firmware
 linux-headers
-lxappearance
 man-db
 nano
 nemo
