@@ -14,13 +14,13 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "<span size='13000' foreground='#8cb6ff'>{icon}</span>",
-        "format-warning": "<span size='13000' foreground='yellow'>{icon} </span>{capacity}%",
-        "format-critical": "<span size='13000' foreground='#ee5396'>{icon} </span>{capacity}%",
-        "format-charging": "<span size='13000' foreground='green'>󰂄 </span>{capacity}%",
-        "format-plugged": "<span size='13000' foreground='#8cb6ff'>󰂄 </span>{capacity}%",
-        "format-alt": "<span size='13000' foreground='#8cb6ff'>{icon} </span>{time}",
-        "format-full": "<span size='13000' foreground='#8cb6ff'>󱈏 </span>{capacity}%",
+        "format": "<span size='13000' foreground='#a6e3a1'>{icon}</span>",
+        "format-warning": "<span size='13000' foreground='#f9e2af'>{icon} </span>{capacity}%",
+        "format-critical": "<span size='13000' foreground='#f38ba8'>{icon} </span>{capacity}%",
+        "format-charging": "<span size='13000' foreground='#a6e3a1'>󰂄 </span>{capacity}%",
+        "format-plugged": "<span size='13000' foreground='#fab387'>󰂄 </span>{capacity}%",
+        "format-alt": "<span size='13000' foreground='#fab387'>{icon} </span>{time}",
+        "format-full": "<span size='13000' foreground='#cba6f7'>󱈏 </span>{capacity}%",
         "format-icons": ["󰁺","󰁼","󰁾","󰂀","󰂂"],
         "tooltip-format": "Time remaining:{time}\nPower draw:{power}W"
     },
@@ -28,7 +28,7 @@
 
     "backlight": {
         "device": "intel_backlight",
-        "format": "<span size='13000' foreground='#8cb6ff'>{icon} </span>",
+        "format": "<span size='13000' foreground='#89dceb'>{icon} </span>",
         "format-icons": ["","󰖨"],
         "tooltip": false
     },
