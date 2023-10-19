@@ -60,6 +60,7 @@ neovim
 network-manager-applet
 networkmanager
 networkmanager-openvpn
+nmap
 nodejs
 noto-fonts
 noto-fonts-cjk
@@ -74,6 +75,7 @@ pacman-contrib
 pipewire-alsa
 pipewire-pulse
 pkgfile
+postgresql-libs
 pyenv
 python-pipenv
 python-pyquery

@@ -56,6 +56,11 @@ alias conversation="mods --continue-last"
 alias gaming="sudo virsh start win11"
 alias stopgaming="sudo virsh shutdown win11"
 
+
+# Docker Compose
+alias dcu="docker compose up -d"
+alias dcd="docker compose down"
+
 # Exa
 alias ld='eza -lD'
 alias lf='eza -lF --color=always | grep -v /'

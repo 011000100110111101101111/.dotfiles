@@ -1,8 +1,8 @@
 ddcutil
 less
 libva
-lxappearance
 network-manager-applet
+nmap
 nvidia-dkms
 seatd
 unzip
