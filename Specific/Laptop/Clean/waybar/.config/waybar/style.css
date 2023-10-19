@@ -122,6 +122,10 @@ tooltip label {
   padding-bottom: 12px;
 }
 
+#backlight {
+  padding-left: 8px;
+}
+
 
 #clock
 {
