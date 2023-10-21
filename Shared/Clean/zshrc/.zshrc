@@ -33,8 +33,8 @@ alias tda="todoist-cli --color --header --indent list --filter '#Arch'"
 # Alias
 
 # ZSH grabbing
-alias zshedit="nvim ~/.zshrc"
-alias zshsource="source ~/.zshrc"
+alias editzsh="nvim ~/.zshrc"
+alias sourcezsh="source ~/.zshrc"
 
 
 alias timer="termdown -c 60 -t 'DONE'"
