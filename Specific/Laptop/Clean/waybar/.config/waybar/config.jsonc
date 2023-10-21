@@ -15,12 +15,12 @@
             "critical": 15
         },
         "format": "<span size='13000' foreground='#a6e3a1'>{icon}</span>",
-        "format-warning": "<span size='13000' foreground='#f9e2af'>{icon} </span>{capacity}%",
-        "format-critical": "<span size='13000' foreground='#f38ba8'>{icon} </span>{capacity}%",
-        "format-charging": "<span size='13000' foreground='#a6e3a1'>󰂄 </span>{capacity}%",
-        "format-plugged": "<span size='13000' foreground='#fab387'>󰂄 </span>{capacity}%",
+        "format-warning": "<span size='13000' foreground='#f9e2af'>{icon} </span>",
+        "format-critical": "<span size='13000' foreground='#f38ba8'>{icon} </span>",
+        "format-charging": "<span size='13000' foreground='#74c7ec'>󰂄</span>",
+        "format-plugged": "<span size='13000' foreground='#fab387'>󰂄</span>",
         "format-alt": "<span size='13000' foreground='#fab387'>{icon} </span>{time}",
-        "format-full": "<span size='13000' foreground='#cba6f7'>󱈏 </span>{capacity}%",
+        "format-full": "<span size='13000' foreground='#cba6f7'>󱈏</span>{capacity}%",
         "format-icons": ["󰁺","󰁼","󰁾","󰂀","󰂂"],
         "tooltip-format": "Time remaining:{time}\nPower draw:{power}W"
     },
