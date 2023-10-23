@@ -55,6 +55,8 @@ alias conversation="mods --continue-last"
 # Virtmanager
 alias gaming="sudo virsh start win11"
 alias stopgaming="sudo virsh shutdown win11"
+alias testing="sudo virsh start teleport-ubuntu22.04 && sleep 60 && sshfs testing@192.168.122.125:/home/testing/ /home/alex/Documents/devfolder/ && sleep 3 && cd $HOME/Documents/devfolder && nvim"
+alias stoptesting="sudo virsh shutdown teleport-ubuntu22.04 && sleep 30 && fusermount -u $HOME/Documents/devfolder"
 
 
 # Docker Compose

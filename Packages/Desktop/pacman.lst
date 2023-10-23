@@ -5,6 +5,7 @@ arch-audit
 base
 base-devel
 bat
+bind
 bpytop
 carla
 code
@@ -22,6 +23,7 @@ edk2-ovmf
 efibootmgr
 expac
 eza
+fd
 ffmpegthumbnailer
 firefox
 font-manager
@@ -30,6 +32,7 @@ fwupd
 fzf
 gdb
 gdb-common
+gimp
 git
 glow
 gnome-keyring
@@ -45,7 +48,9 @@ intel-ucode
 jq
 jupyter-notebook
 kitty
+lazygit
 less
+libheif
 libreoffice-fresh
 libva
 libvirt
@@ -95,6 +100,7 @@ seatd
 sl
 slurp
 source-highlight
+sshfs
 steam
 stow
 swayidle

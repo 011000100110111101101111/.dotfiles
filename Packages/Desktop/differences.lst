@@ -1,10 +1,16 @@
 ddcutil
+fd
+gimp
+lazygit
 less
+libheif
 libva
 network-manager-applet
 nmap
 nvidia-dkms
+postgresql-libs
 seatd
+sshfs
 unzip
 wireplumber
 zip
