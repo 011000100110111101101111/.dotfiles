@@ -25,6 +25,8 @@ source "/usr/share/todoist-cli/todoist_functions_fzf.sh"
 alias tds="todoist-cli --color --header --indent list --filter '(today | overdue) & #Education'"
 alias tdp="todoist-cli --color --header --indent list --filter '(today | overdue) & #Personal'"
 alias tda="todoist-cli --color --header --indent list --filter '#Arch'"
+alias tdtmr="todoist-cli --color --header --indent list --filter '(tomorrow)'"
+alias tdtd="todoist-cli --color --header --indent list --filter '(today | overdue)'"
 
 
 
