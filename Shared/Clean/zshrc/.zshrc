@@ -26,7 +26,7 @@ alias tds="todoist-cli --color --header --indent list --filter '(today | overdue
 alias tdp="todoist-cli --color --header --indent list --filter '(today | overdue) & #Personal'"
 alias tda="todoist-cli --color --header --indent list --filter '#Arch'"
 alias tdtmr="todoist-cli --color --header --indent list --filter '(tomorrow)'"
-alias tdtd="todoist-cli --color --header --indent list --filter '(today | overdue)'"
+alias td="todoist-cli --color --header --indent list --filter '(today | overdue)'"
 
 
 
