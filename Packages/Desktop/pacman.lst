@@ -58,6 +58,7 @@ linux
 linux-firmware
 linux-headers
 man-db
+minikube
 nano
 nemo
 neofetch
