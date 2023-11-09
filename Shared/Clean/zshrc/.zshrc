@@ -59,11 +59,13 @@ alias gaming="sudo virsh start win11"
 alias stopgaming="sudo virsh shutdown win11"
 alias testing="sudo virsh start teleport-ubuntu22.04 && sleep 60 && sshfs testing@192.168.122.125:/home/testing/ /home/alex/Documents/devfolder/ && sleep 3 && cd $HOME/Documents/devfolder && nvim"
 alias stoptesting="sudo virsh shutdown teleport-ubuntu22.04 && sleep 30 && fusermount -u $HOME/Documents/devfolder"
-
+alias kubes="sudo virsh start LearningKubernettes && sudo virsh start WorkerNodeB && sudo virsh start WorkerNodeA"
+alias stopkubes="sudo virsh shutdown LearningKubernettes && sudo virsh shutdown WorkerNodeB && sudo virsh shutdown WorkerNodeA"
 
 # Docker Compose
 alias dcu="docker compose up -d"
 alias dcd="docker compose down"
+
 
 # Exa
 alias ld='eza -lD'

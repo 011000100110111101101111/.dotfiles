@@ -10,9 +10,11 @@ minikube
 network-manager-applet
 nmap
 nvidia-dkms
+php
 postgresql-libs
 seatd
 sshfs
 unzip
 wireplumber
+wl-clipboard
 zip

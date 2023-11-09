@@ -9,6 +9,7 @@ bind
 bpytop
 carla
 code
+composer
 cups
 cups-pdf
 ddcutil
@@ -78,6 +79,7 @@ nvidia-dkms
 obs-studio
 openresolv
 pacman-contrib
+php
 pipewire-alsa
 pipewire-pulse
 pkgfile
@@ -116,6 +118,7 @@ ttf-liberation
 udiskie
 ufw
 unzip
+vim
 virt-manager
 vlc
 vulkan-tools
@@ -124,7 +127,7 @@ wget
 wireguard-tools
 wireplumber
 wireshark-qt
-xclip
+wl-clipboard
 xdg-desktop-portal-hyprland
 xorg-xev
 xxhash

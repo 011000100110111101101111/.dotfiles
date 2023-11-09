@@ -9,6 +9,7 @@ return {
         "bash-language-server",
         "ansible-language-server",
         "css-lsp",
+        "phpactor",
       },
       automatic_installation = true,
     },
