@@ -1,0 +1,65 @@
+######################################### Source autostart stuff ########################################
+source = ./autostartHypr.conf
+
+######################################## Source Wallpapers ########################################
+source = ./wallpapersHypr.conf
+
+######################################## Source Keybinds ########################################
+source = ./bindsHypr.conf
+
+
+
+######################################## This is Desktop Specific Stuff, everything sourced is shared ########################################
+ 
+#Monitors and their assigned workspaces
+
+monitor=HDMI-A-2,2560x1440@144,6320x0,1
+workspace=HDMI-A-2,7
+workspace=HDMI-A-2,8
+workspace=HDMI-A-2,9
+
+monitor=DP-1,3440x1440@144,2880x0,1
+workspace=DP-1,4
+workspace=DP-1,5
+workspace=DP-1,6
+
+monitor=DP-2,1440x2560@120,1440x0,1,transform,3
+workspace=DP-2,1
+workspace=DP-2,2
+workspace=DP-2,3
+
+
+monitor=HDMI-A-1,3840x2160@60,8880x0,1
+workspace=HDMI-A-1,10
+
+# For nvidia
+env = LIBVA_DRIVER_NAME,nvidia
+env = XDG_SESSION_TYPE,wayland
+# Might be causing firefox crashes
+env = GBM_BACKEND,nvidia-drm
+env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+env = WLR_NO_HARDWARE_CURSORS,1
+
+
+
+# Wallpapers for workspace
+$w1 = $we1 -o DP-2 $wp1
+$w2 = $we2 -o DP-2 $wp2
+$w3 = $we3 -o DP-2 $wp3
+$w4 = $we4 -o DP-1 $wp4
+$w5 = $we5 -o DP-1 $wp5
+$w6 = $we6 -o DP-1 $wp6
+$w7 = $we7 -o HDMI-A-2 $wp7
+$w8 = $we8 -o HDMI-A-2 $wp8
+$w9 = $we9 -o HDMI-A-2 $wp9
+$w10 = $we9 -o HDMI-A-1 $wp9
+
+
+######################################## Source Seperate config to apply above to specific workspaces ########################################
+source = ./extrabindsHypr.conf
+
+######################################## Source general hyprland config (Where all animations colors etc are) ########################################
+source = ./generalHypr.conf
+
+
+

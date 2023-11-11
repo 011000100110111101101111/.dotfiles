@@ -46,9 +46,6 @@ alias top="bpytop"
 # Ranger
 alias rr='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 
-# Spotify-launcher
-alias spotify="spotify_player"
-
 
 # OpenAI
 alias question="mods"
