@@ -102,6 +102,7 @@ sddm
 seatd
 sl
 slurp
+socat
 source-highlight
 sshfs
 sshpass
