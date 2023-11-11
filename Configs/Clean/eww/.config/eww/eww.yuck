@@ -1,0 +1,37 @@
+(include "./widgets/time.yuck")
+(include "./widgets/powervert.yuck")
+
+
+;; End Widgets ;;
+(defwidget right []
+	(box :orientation "h" 
+		 :space-evenly "false"
+     :halign "end"
+		 :spacing 10
+(time)))
+
+
+;; End Widgets ;;
+(defwidget left []
+	(box :orientation "h" 
+		 :space-evenly "false" 
+     :halign "start"
+		 :spacing 10
+(time)))
+
+;; Bar Widgets ;;
+(defwidget bar []
+	(box :class "eww_bar" 
+		 :orientation "h" 
+(left)
+(right)))
+
+;; Actual bar ;;
+(defwindow bar
+	:geometry (geometry 
+            :x "0" 
+						:y "0"
+						:height "1%" 
+						:width "100%")
+	:monitor 3
+(bar))
