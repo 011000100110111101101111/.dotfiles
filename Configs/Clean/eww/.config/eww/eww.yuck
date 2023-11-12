@@ -68,7 +68,7 @@
   (eventbox
     :onhover "eww update weather-info=true"
     :onhoverlost "eww update weather-info=false"
-    :onclick "firefox https://www.windy.com/?hrrrConus,45.445,-122.764,9 & disown"
+    :onclick "firefox https://www.windy.com/?hrrrConus,42.153,-70.464,9 & disown"
     :cursor "pointer"
     (box
       :class "weather ${weather-info ? "weather-hover" : "" }"
@@ -1030,6 +1030,11 @@
 (defvar ws-h3 false)
 (defvar ws-h4 false)
 (defvar ws-h5 false)
+(defvar ws-h6 false)
+(defvar ws-h7 false)
+(defvar ws-h8 false)
+(defvar ws-h9 false)
+(defvar ws-h10 false)
 (deflisten active-ws
   :initial "5"
   'tail -F /tmp/eww/workspace 2> /dev/null'
@@ -1074,11 +1079,16 @@
           padding: 11px 15px 0px 15px;
           "
         : "" }"
-      (workspace :icon "network"  :num "1" :hover ws-h1 :desc " chat 'n networking")
-      (workspace :icon "learn"    :num "2" :hover ws-h2 :desc " documents 'n such" )
+      (workspace :icon "dna"  :num "1" :hover ws-h1 :desc " Chatting")
+      (workspace :icon "dna"    :num "2" :hover ws-h2 :desc " documents 'n such" )
       (workspace :icon "dna"      :num "3" :hover ws-h3 :desc " primary desktop" )
-      (workspace :icon "dotfiles" :num "4" :hover ws-h4 :desc " settings 'n secondary work" )
-      (workspace :icon "music"    :num "5" :hover ws-h5 :desc " music" )
+      (workspace :icon "learn" :num "4" :hover ws-h4 :desc " settings 'n secondary work" )
+      (workspace :icon "learn"    :num "5" :hover ws-h5 :desc " music" )
+      (workspace :icon "learn"    :num "6" :hover ws-h6 :desc " music" )
+      (workspace :icon "network"    :num "7" :hover ws-h7 :desc " music" )
+      (workspace :icon "network"    :num "8" :hover ws-h8 :desc " music" )
+      (workspace :icon "network"    :num "9" :hover ws-h9 :desc " music" )
+      (workspace :icon "music"    :num "10" :hover ws-h10 :desc " music" )
     )
   )
 )
