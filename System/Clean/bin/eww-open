@@ -6,5 +6,4 @@ eww open-many \
 	today \
 	computer assistant \
 	workspaces \
-	music albumArt \
-	systemctl
+	music albumArt dunst systemctl
