@@ -9,7 +9,7 @@ playerctl pause
 # change-bg "lock" 2>&1 /dev/null
 sleep 0.5
 
-swaylock -C "$HOME/.config/swaylock/config"
+#swaylock -C "$HOME/.config/swaylock/config"
 
 glava -e "bars_rc.glsl" &
 disown

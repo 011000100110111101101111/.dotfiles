@@ -1,18 +1,42 @@
 #!/usr/bin/env bash
 
-layout -n 3
-layout -n 4
+#layout -n 3
+#layout -n 4
 
-hyprctl dispatch workspace 6
-spotify &
-disown
-sleep 2
+#hyprctl dispatch workspace 6
+#spotify &
+#disown
+#sleep 2
 
 #hyprctl dispatch workspace 4
 #hyprctl dispatch exec kitty
-hyprctl dispatch moveactive exact 2900 100
-hyprctl dispatch resizeactive exact 1500 1320
+#hyprctl dispatch moveactive exact 2900 100
+#hyprctl dispatch resizeactive exact 1500 1320
+ws=$(tail -n 1 /tmp/eww/workspace)
+hyprctl dispatch workspace 6
 
-lock
+killall eww -9
+killall glava
+playerctl pause
+# change-bg "lock" 2>&1 /dev/null
+sleep 0.5
+
+#swaylock -C "$HOME/.config/swaylock/config"
+
+glava -e "bars_rc.glsl" &
+disown
+glava -e "radial_rc.glsl" &
+disown
+#change-bg "music"
+hyprctl dispatch workspace "$ws"
+
+ps -ef | rg weather_info | rg -v rg | awk '{print $2}' | xargs kill
+eval "$HOME/.config/eww/bin/weather_info" &
+disown
+eval "$HOME/.config/eww/bin/date_info" &
+disown
+
+dunstify -a "attention" -u low "$USER@$HOSTNAME" "こんにちは"
+eww-open
 
 exit 0
