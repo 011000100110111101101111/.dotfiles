@@ -5,6 +5,7 @@ arch-audit
 base
 base-devel
 bat
+bc
 bind
 bpytop
 carla
@@ -20,6 +21,7 @@ dnsmasq
 docker
 docker-compose
 duf
+dunst
 edk2-ovmf
 efibootmgr
 expac
@@ -35,6 +37,7 @@ gdb
 gdb-common
 gimp
 git
+glava
 glow
 gnome-keyring
 gnome-themes-extra
@@ -76,6 +79,7 @@ noto-fonts-extra
 npm
 ntfs-3g
 nvidia-dkms
+nvtop
 obs-studio
 openresolv
 pacman-contrib
@@ -125,6 +129,7 @@ virt-manager
 vlc
 vulkan-tools
 webp-pixbuf-loader
+wf-recorder
 wget
 wireguard-tools
 wireplumber

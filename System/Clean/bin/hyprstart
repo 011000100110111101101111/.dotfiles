@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+layout -n 3
+layout -n 4
+
+hyprctl dispatch workspace 6
+spotify &
+disown
+sleep 2
+
+#hyprctl dispatch workspace 4
+#hyprctl dispatch exec kitty
+hyprctl dispatch moveactive exact 2900 100
+hyprctl dispatch resizeactive exact 1500 1320
+
+lock
+
+exit 0
