@@ -70,15 +70,15 @@ hyprctl dispatch workspace "$n_flag"
 
 case "$n_flag" in
 1)
-	terminal "test"
 	#browser "https://outlook.office365.com/mail/"
 	#browser "https://teams.microsoft.com/_" tab
 	;;
 2) ;;
 3) ;;
 4)
-	terminal "dotfiles"
-	#browser "https://github.com/nosvagor/dotfiles"
+	terminal "homepage"
+	browser "https://calendar.google.com/calendar/u/0/r"
+	browser "https://app.todoist.com/app/today" tab
 	;;
 5) ;;
 6) ;;

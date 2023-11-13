@@ -470,7 +470,7 @@
   (eventbox
     :onhover "eww update cpu-hover=true"
     :onhoverlost "eww update cpu-hover=false"
-    :onclick "kitty --title='terminalfloat' -e btop & disown"
+    :onclick "kitty --title='terminalfloat' -e bpytop & disown"
     :cursor "pointer"
     (box
       :class "computerbox ${cpu-hover ? "computerbox-hover" : "" }"
@@ -507,7 +507,7 @@
   (eventbox
     :onhover "eww update memory-hover=true"
     :onhoverlost "eww update memory-hover=false"
-    :onclick "kitty --title='terminalfloat' -e btop & disown"
+    :onclick "kitty --title='terminalfloat' -e bpytop & disown"
     :cursor "pointer"
     (box
       :class "computerbox ${memory-hover ? "computerbox-hover" : "" }"
@@ -714,7 +714,7 @@
 
 (defwindow albumArt
   :monitor 2 :stacking "overlay" :exclusive false :focusable false
-  :geometry (geometry :anchor "bottom right" :x "4%" :y "4%")
+  :geometry (geometry :anchor "bottom right" :x "2%" :y "3%")
   (albumArt)
 )
 ;; 💿 albumArt {{{
@@ -1221,7 +1221,7 @@
 
 (defwindow dunst
   :monitor 2 :stacking "overlay" :exclusive false :focusable false
-  :geometry (geometry :anchor "bottom right" :y "95px" )
+  :geometry (geometry :anchor "bottom right" :y "19%" )
   (dunst)
 )
 ; 🔔 dunst: {{{

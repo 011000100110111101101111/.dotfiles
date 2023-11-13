@@ -10,8 +10,8 @@ source $ZSH/oh-my-zsh.sh
 
 eval "$(zoxide init zsh --cmd cd)"
 
-source $HOME/.local/share/Cryptomator/mnt/Nexus/Documents/Arch/.toks
-alias hosts="nvim $HOME/.local/share/Cryptomator/mnt/Nexus/Documents/Arch/.toks"
+source $HOME/.local/.temp
+alias hosts="nvim $HOME/.local/.toks"
 
 # TODIST cml
 source "/usr/share/todoist-cli/todoist_functions_fzf.sh"
