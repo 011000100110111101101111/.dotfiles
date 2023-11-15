@@ -78,3 +78,6 @@ alias storage="duf"
 alias scan="arch-audit && sudo rkhunter --check"
 # Files stuff
 alias cat="bat"
+
+# Debugging hyprctl clients
+alias hyprctlclients='watch -n 0.1 "cat "/tmp/hypr/$(echo $HYPRLAND_INSTANCE_SIGNATURE)/hyprland.log" | grep -v "efresh" | grep "rule" | tail -n 40"'

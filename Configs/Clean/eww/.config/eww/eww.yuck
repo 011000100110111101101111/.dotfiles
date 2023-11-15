@@ -32,17 +32,13 @@
 ; }}}
 ; =============================================================================
 
-
-
 (defwindow today
   :monitor 2 
   :stacking "overlay" 
   :exclusive false 
   :focusable false
   :geometry (geometry 
-                      :width "40%" 
-                      :anchor "top center" 
-                      :x "1060px")
+                      :anchor "top center")
   (centerbox
     (weather) (time) (date)
   )
@@ -373,11 +369,242 @@
     :halign "end" :space-evenly false :spacing 0
     :class "tr-m"
     :style "margin-right: ${user-hover ? 100 : 5 }px;"
-    (cpu) (memory) (gpu)
+    (cpu) (memory)
   )
 )
 ; 💻 computer: {{{
 
+(defpoll sensors
+  :interval "0.5s"
+  :initial `{
+   "coretemp-isa-0000":{
+      "Adapter": "ISA adapter",
+      "Package id 0":{
+         "temp1_input": 42.000,
+         "temp1_max": 86.000,
+         "temp1_crit": 100.000,
+         "temp1_crit_alarm": 0.000
+      },
+      "Core 0":{
+         "temp2_input": 42.000,
+         "temp2_max": 86.000,
+         "temp2_crit": 100.000,
+         "temp2_crit_alarm": 0.000
+      },
+      "Core 1":{
+         "temp3_input": 41.000,
+         "temp3_max": 86.000,
+         "temp3_crit": 100.000,
+         "temp3_crit_alarm": 0.000
+      },
+      "Core 2":{
+         "temp4_input": 41.000,
+         "temp4_max": 86.000,
+         "temp4_crit": 100.000,
+         "temp4_crit_alarm": 0.000
+      },
+      "Core 3":{
+         "temp5_input": 38.000,
+         "temp5_max": 86.000,
+         "temp5_crit": 100.000,
+         "temp5_crit_alarm": 0.000
+      },
+      "Core 4":{
+         "temp6_input": 39.000,
+         "temp6_max": 86.000,
+         "temp6_crit": 100.000,
+         "temp6_crit_alarm": 0.000
+      },
+      "Core 5":{
+         "temp7_input": 42.000,
+         "temp7_max": 86.000,
+         "temp7_crit": 100.000,
+         "temp7_crit_alarm": 0.000
+      },
+      "Core 6":{
+         "temp8_input": 43.000,
+         "temp8_max": 86.000,
+         "temp8_crit": 100.000,
+         "temp8_crit_alarm": 0.000
+      },
+      "Core 7":{
+         "temp9_input": 41.000,
+         "temp9_max": 86.000,
+         "temp9_crit": 100.000,
+         "temp9_crit_alarm": 0.000
+      }
+   },
+   "it8792-isa-0a60":{
+      "Adapter": "ISA adapter",
+      "in0":{
+         "in0_input": 0.676,
+         "in0_min": 0.000,
+         "in0_max": 2.780,
+         "in0_alarm": 0.000,
+         "in0_beep": 0.000
+      },
+      "in1":{
+         "in1_input": 0.676,
+         "in1_min": 0.000,
+         "in1_max": 2.780,
+         "in1_alarm": 0.000,
+         "in1_beep": 0.000
+      },
+      "in2":{
+         "in2_input": 1.036,
+         "in2_min": 0.000,
+         "in2_max": 2.780,
+         "in2_alarm": 0.000,
+         "in2_beep": 0.000
+      },
+      "+3.3V":{
+         "in3_input": 3.357,
+         "in3_min": 0.000,
+         "in3_max": 5.559,
+         "in3_alarm": 0.000,
+         "in3_beep": 0.000
+      },
+      "in4":{
+         "in4_input": 1.243,
+         "in4_min": 0.000,
+         "in4_max": 2.780,
+         "in4_alarm": 0.000,
+         "in4_beep": 0.000
+      },
+      "in5":{
+         "in5_input": 1.504,
+         "in5_min": 0.000,
+         "in5_max": 2.780,
+         "in5_alarm": 0.000,
+         "in5_beep": 0.000
+      },
+      "in6":{
+         "in6_input": 2.780,
+         "in6_min": 0.000,
+         "in6_max": 2.780,
+         "in6_alarm": 1.000,
+         "in6_beep": 0.000
+      },
+      "3VSB":{
+         "in7_input": 3.314,
+         "in7_min": 0.000,
+         "in7_max": 5.559,
+         "in7_alarm": 0.000,
+         "in7_beep": 0.000
+      },
+      "Vbat":{
+         "in8_input": 3.248
+      },
+      "fan1":{
+         "fan1_input": 664.000,
+         "fan1_min": 0.000,
+         "fan1_alarm": 0.000,
+         "fan1_beep": 1.000
+      },
+      "fan2":{
+         "fan2_input": 0.000,
+         "fan2_min": 0.000,
+         "fan2_alarm": 0.000,
+         "fan2_beep": 1.000
+      },
+      "fan3":{
+         "fan3_input": 0.000,
+         "fan3_min": 0.000,
+         "fan3_alarm": 0.000,
+         "fan3_beep": 1.000
+      },
+      "temp1":{
+         "temp1_input": 47.000,
+         "temp1_max": 127.000,
+         "temp1_min": 127.000,
+         "temp1_alarm": 0.000,
+         "temp1_type": 4.000,
+         "temp1_offset": 0.000,
+         "temp1_beep": 1.000
+      },
+      "temp2":{
+         "temp2_input": -55.000,
+         "temp2_max": 127.000,
+         "temp2_min": 127.000,
+         "temp2_alarm": 0.000,
+         "temp2_type": 4.000,
+         "temp2_offset": 0.000,
+         "temp2_beep": 1.000
+      },
+      "temp3":{
+         "temp3_input": 46.000,
+         "temp3_max": 127.000,
+         "temp3_min": 127.000,
+         "temp3_alarm": 0.000,
+         "temp3_type": 4.000,
+         "temp3_offset": 0.000,
+         "temp3_beep": 1.000
+      },
+      "intrusion0":{
+         "intrusion0_alarm": 1.000
+      }
+   },
+   "nvme-pci-0300":{
+      "Adapter": "PCI adapter",
+      "Composite":{
+         "temp1_input": 50.850,
+         "temp1_max": 81.850,
+         "temp1_min": -273.150,
+         "temp1_crit": 84.850,
+         "temp1_alarm": 0.000
+      },
+      "Sensor 1":{
+         "temp2_input": 50.850,
+         "temp2_max": 65261.850,
+         "temp2_min": -273.150
+      },
+      "Sensor 2":{
+         "temp3_input": 54.850,
+         "temp3_max": 65261.850,
+         "temp3_min": -273.150
+      }
+   },
+   "acpitz-acpi-0":{
+      "Adapter": "ACPI interface",
+      "temp1":{
+         "temp1_input": 27.800
+      }
+   },
+   "iwlwifi_1-virtual-0":{
+      "Adapter": "Virtual device",
+      "temp1":{
+         "temp1_input": 34.000
+      }
+   },
+   "pch_cannonlake-virtual-0":{
+      "Adapter": "Virtual device",
+      "temp1":{
+         "temp1_input": 64.000
+      }
+   },
+   "nvme-pci-0200":{
+      "Adapter": "PCI adapter",
+      "Composite":{
+         "temp1_input": 45.850,
+         "temp1_max": 84.850,
+         "temp1_min": -273.150,
+         "temp1_crit": 84.850,
+         "temp1_alarm": 0.000
+      },
+      "Sensor 1":{
+         "temp2_input": 45.850,
+         "temp2_max": 65261.850,
+         "temp2_min": -273.150
+      },
+      "Sensor 2":{
+         "temp3_input": 49.850,
+         "temp3_max": 65261.850,
+         "temp3_min": -273.150
+      }
+   }
+}`
+  `sensors -j`
+)
 ; Update `define_builtin_vars! { Duration::new(0, 500000000)` in inbuilt.rs
 ; Default is (2, 0), but I like updates of 0.5 seconds for cpu polling.
 (defwidget num-to-block [load]
@@ -476,13 +703,13 @@
       :class "computerbox ${cpu-hover ? "computerbox-hover" : "" }"
       :space-evenly false :spacing "${cpu-hover ? "12" : "8" }"
       (temp-ramp
-        :current {round(sensors.nvme-pci-0100.Composite.temp1_input,0)}
+        :current {round(sensors.coretemp-isa-0000['Package id 0'].temp1_input, 0)}
         :percent {round(
-          sensors.nvme-pci-0100.Composite.temp1_input /
-          (sensors.nvme-pci-0100.Composite.temp1_min -
-          sensors.nvme-pci-0100.Composite.temp1_max * - 1) * 100
-        ,0)}
-        :max {sensors.nvme-pci-0100.Composite.temp1_max}
+          sensors.coretemp-isa-0000['Package id 0'].temp1_input /
+          (sensors.coretemp-isa-0000['Package id 0'].temp1_max -
+          sensors.coretemp-isa-0000['Package id 0'].temp1_crit * -1) * 100
+        , 0)}
+        :max {sensors.coretemp-isa-0000['Package id 0'].temp1_crit}
         :bool cpu-hover
       )
       (label-ramp
@@ -498,7 +725,6 @@
     )
   )
 )
-
 
 (defvar range16 "[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]")
 (defvar memory-hover false)
@@ -536,15 +762,9 @@
   )
 )
 
-
-(defpoll sensors
-  :interval "0.5s"
-  :initial `{ "nvme-pci-0100":{ "Adapter": "PCI adapter", "Composite":{ "temp1_input": 42.850, "temp1_max": 79.850, "temp1_min": -5.150, "temp1_crit": 84.850, "temp1_alarm": 0.000 } }, "amdgpu-pci-0d00":{ "Adapter": "PCI adapter", "vddgfx":{ "in0_input": 0.750 }, "fan1":{ "fan1_input": 0.000, "fan1_min": 0.000, "fan1_max": 3630.000 }, "edge":{ "temp1_input": 57.000, "temp1_crit": 100.000, "temp1_crit_hyst": -273.150, "temp1_emergency": 105.000 }, "junction":{ "temp2_input": 57.000, "temp2_crit": 110.000, "temp2_crit_hyst": -273.150, "temp2_emergency": 115.000 }, "mem":{ "temp3_input": 60.000, "temp3_crit": 105.000, "temp3_crit_hyst": -273.150, "temp3_emergency": 110.000 }, "PPT":{ "power1_average": 21.000, "power1_cap": 190.000 } }, "k10temp-pci-00c3":{ "Adapter": "PCI adapter", "Tctl":{ "temp1_input": 64.000 }, "Tccd1":{ "temp3_input": 65.500 } } }`
-  `sensors -j`
-)
 (defpoll gpu
   :interval "0.5s"
-  :initial `{ "mem_busy":"0", "gpu_busy":"0", "mclk":"0", "mclk_level": "0", "vram":"0", "used":"0" }`
+  :initial `{ "mem_busy":"0", "gpu_busy":"0", "vram":"0", "used":"0", "fan_speed":"0", "power_draw":"0", "power_limit":"0", "temp":"0" }`
   'bin/computer_info'
 )
 (defvar range8 "[0,1,2,3,4,5,6,7]")
@@ -575,19 +795,19 @@
       (label-ramp
         :icon ""
         :percent {round(
-            sensors.amdgpu-pci-0d00.PPT.power1_average /
-            sensors.amdgpu-pci-0d00.PPT.power1_cap * 100
+            gpu.power_draw /
+            gpu.power_limit * 100
         ,0)}
-        :val "${round(sensors.amdgpu-pci-0d00.PPT.power1_average,0)}<sub><b>W</b></sub>"
+        :val "${round(gpu.power_draw,0)}<sub><b>W</b></sub>"
         :bool gpu-hover
      )
       (label-ramp
         :icon "󰈐"
         :percent {round(
-            sensors.amdgpu-pci-0d00.fan1.fan1_input /
-            sensors.amdgpu-pci-0d00.fan1.fan1_max * 100
+            gpu.fan_speed /
+            100 * 100
         ,0)}
-        :val "${round(sensors.amdgpu-pci-0d00.fan1.fan1_input,0)}<sub><b>RPM</b></sub>"
+        :val "${round(gpu.fan_speed,0)}<sub><b>RPM</b></sub>"
         :bool gpu-hover
       )
       (vram)
@@ -597,10 +817,10 @@
 
 (defwidget gpu-temp []
   (temp-ramp
-    :current {round(sensors.amdgpu-pci-0d00.junction.temp2_input,0)}
+    :current {round(gpu.temp,0)}
     :percent {round(
-      sensors.amdgpu-pci-0d00.junction.temp2_input /
-      sensors.amdgpu-pci-0d00.junction.temp2_crit  * 100
+      gpu.temp /
+      84  * 100
     ,0)}
     :max {sensors.amdgpu-pci-0d00.junction.temp2_crit}
     :bool gpu-hover
@@ -1221,7 +1441,7 @@
 
 (defwindow dunst
   :monitor 2 :stacking "overlay" :exclusive false :focusable false
-  :geometry (geometry :anchor "bottom right" :y "19%" )
+  :geometry (geometry :anchor "bottom right" :y "18%" )
   (dunst)
 )
 ; 🔔 dunst: {{{

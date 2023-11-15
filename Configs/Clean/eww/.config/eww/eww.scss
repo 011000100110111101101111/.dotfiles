@@ -332,8 +332,8 @@ $ease-out-snap: cubic-bezier(0.25, 0.575, 0.565, 1.314);
   background-repeat: no-repeat;
   background-size: 102%;
   background-position: center;
-  min-width: 220px;
-  min-height: 220px;
+  min-width: 200px;
+  min-height: 200px;
   border: 2px solid $blu-1;
   border-radius: 50%;
   margin: 30px;
@@ -651,6 +651,7 @@ $ease-out-snap: cubic-bezier(0.25, 0.575, 0.565, 1.314);
 // }}}
 // 📆 date: {{{
 .date {
+  //font-family: "Noto Color Emoji";
   background: $bg;
   padding: 4px 1.1em;
   margin: 16px 8px 50px;

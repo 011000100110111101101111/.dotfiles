@@ -4,6 +4,13 @@ killall eww -9
 eww daemon
 eww open-many \
 	today \
-	computer assistant \
+	assistant \
 	workspaces \
-	music albumArt dunst systemctl
+	music albumArt dunst
+
+glava -e "radial_rc.glsl" &
+disown
+
+layout -n 1
+sleep 1
+dunstify -a "attention" -u low "$USER@$HOSTNAME" "こんWelcome backにちは"

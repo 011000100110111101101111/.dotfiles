@@ -1,10 +1,9 @@
 [global]
-follow = "keyboard"
-monitor = 2
+monitor = 1
 enable_posix_regex = true
 origin = "bottom-right"
-width = 600
-offset = "150x340"
+width = 375
+offset = "85x317"
 notification_limit = 1
 progress_bar = true
 progress_bar_height = 10
@@ -12,7 +11,7 @@ progress_bar_frame_width = 1
 progress_bar_min_width = 600
 progress_bar_max_width = 600
 indicate_hidden = false
-padding = 16
+padding = 2
 horizontal_padding = 16
 text_icon_padding = 16
 frame_width = 2

@@ -8,6 +8,7 @@ bat
 bc
 bind
 bpytop
+calc
 carla
 code
 composer
@@ -35,6 +36,7 @@ fwupd
 fzf
 gdb
 gdb-common
+gifsicle
 gimp
 git
 glava
@@ -46,6 +48,7 @@ grim
 grub
 gst-libav
 gst-plugins-ugly
+guvcview
 hyprland
 inotify-tools
 intel-ucode
@@ -101,6 +104,7 @@ ripgrep
 ristretto
 rkhunter
 rofi
+rofi-emoji
 rsync
 sddm
 seatd
@@ -119,8 +123,12 @@ timeshift
 tldr
 traceroute
 tree
+ttf-fira-code
 ttf-font-awesome
+ttf-hack
+ttf-jetbrains-mono
 ttf-liberation
+ttf-nerd-fonts-symbols
 udiskie
 ufw
 unzip
@@ -129,6 +137,7 @@ virt-manager
 vlc
 vulkan-tools
 webp-pixbuf-loader
+wev
 wf-recorder
 wget
 wireguard-tools

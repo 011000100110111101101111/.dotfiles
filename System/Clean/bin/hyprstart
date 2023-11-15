@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 
-sleep 1
-
-layout -n 4
-
+sleep 3
+hyprctl dispatch workspace 6
+sleep 2
 hyprctl dispatch workspace 5
-glava -e "radial_rc.glsl" &
-disown
 spotify &
 disown
 sleep 2

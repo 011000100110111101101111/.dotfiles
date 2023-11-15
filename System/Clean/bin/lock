@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-hyprctl dispatch workspace 6
-
 killall eww -9
 killall glava
 playerctl pause
@@ -10,10 +8,8 @@ sleep 1
 
 #swaylock -C "$HOME/.config/swaylock/config"
 
-glava -e "radial_rc.glsl" &
-disown
 #change-bg "music"
-hyprctl dispatch workspace 4
+hyprctl dispatch workspace 1
 
 ps -ef | rg weather_info | rg -v rg | awk '{print $2}' | xargs kill
 eval "$HOME/.config/eww/bin/weather_info" &
@@ -21,7 +17,6 @@ disown
 eval "$HOME/.config/eww/bin/date_info" &
 disown
 
-dunstify -a "attention" -u low "$USER@$HOSTNAME" "こんWelcome backにちは"
 eww-open
 
 exit 0
