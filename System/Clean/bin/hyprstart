@@ -1,21 +1,29 @@
 #!/usr/bin/env bash
 
+dunstify -a "attention" -u low "$USER@$HOSTNAME" "🏗️ Initializing Nexus 🏗️"
 sleep 3
 hyprctl dispatch workspace 6
 sleep 2
 hyprctl dispatch workspace 5
 spotify &
 disown
-sleep 2
-hyprctl dispatch workspace 8
+sleep 1
+hyprctl dispatch workspace 4
+sleep 1
+hyprctl dispatch workspace 7
 discord &
 disown
-sleep 1
+firefox &
+disown
+sleep 3
+hyprctl dispatch layoutmsg orientationtop
+sleep 2
+hyprctl dispatch workspace 8
 thunderbird &
 disown
 sleep 2
-hyprctl dispatch layoutmsg orientationtop
-sleep 2
+hyprctl dispatch workspace 7
+sleep 1
 lock
 
 exit 0

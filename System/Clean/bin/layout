@@ -74,13 +74,16 @@ case "$n_flag" in
 	browser "https://calendar.google.com/calendar/u/0/r"
 	browser "https://app.todoist.com/app/today" tab
 	;;
-2) ;;
+2)
+	browser "https://www.udemy.com/home/my-courses/learning/"
+	browser
+	;;
 3) ;;
 4) ;;
 5) ;;
 6)
-	browser "https://www.youtube.com/"
-	browser "https://www.amazon.com/Amazon-Video/b?node=2858778011" tab
+	browser "https://www.amazon.com/Amazon-Video/b?node=2858778011"
+	browser "https://www.youtube.com/" tab
 	;;
 7) ;;
 8) ;;

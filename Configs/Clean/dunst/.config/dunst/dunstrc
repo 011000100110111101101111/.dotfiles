@@ -22,7 +22,7 @@ layer = "top"
 font = "Albert Sans 16"
 line_height = 2
 markup = "full"
-format = "<b>⽱ %s</b> <span size='50%' rise='6pt'> ⾛ <span rise='5pt'><tt>%a</tt></span></span>\n%b"
+format = "<b>%s</b> <span size='50%' rise='6pt'> <span rise='5pt'><tt>%a</tt></span></span>\n%b"
 fullscreen = "pushback"
 alignment = "left"
 vertical_alignment = "center"

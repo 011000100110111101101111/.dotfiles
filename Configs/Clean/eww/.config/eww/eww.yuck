@@ -909,7 +909,7 @@
 
 
 (defwindow assistant
-  :monitor 1 :stacking "bg" :exclusive false :focusable false
+  :monitor 1 :stacking "overlay" :exclusive false :focusable false
   :geometry (geometry :anchor "top left" :y "-3px" )
   (assistant)
 )
