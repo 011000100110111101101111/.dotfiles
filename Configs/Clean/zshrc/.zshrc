@@ -14,12 +14,12 @@ source $HOME/.local/.temp
 alias hosts="nvim $HOME/.local/.temp"
 
 # TODIST cml
-source "/usr/share/todoist-cli/todoist_functions_fzf.sh"
-alias tds="todoist-cli --color --header --indent list --filter '(today | overdue) & #Education'"
-alias tdp="todoist-cli --color --header --indent list --filter '(today | overdue) & #Personal'"
-alias tda="todoist-cli --color --header --indent list --filter '#Arch'"
-alias tdt="todoist-cli --color --header --indent list --filter '(tomorrow)'"
-alias td="todoist-cli --color --header --indent list --filter '(today | overdue)'"
+# source "/usr/share/todoist-cli/todoist_functions_fzf.sh"
+# alias tds="todoist-cli --color --header --indent list --filter '(today | overdue) & #Education'"
+# alias tdp="todoist-cli --color --header --indent list --filter '(today | overdue) & #Personal'"
+# alias tda="todoist-cli --color --header --indent list --filter '#Arch'"
+# alias tdt="todoist-cli --color --header --indent list --filter '(tomorrow)'"
+# alias td="todoist-cli --color --header --indent list --filter '(today | overdue)'"
 
 # Alias
 
