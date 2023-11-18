@@ -21,7 +21,7 @@ alias tda="todoist-cli --color --header --indent list --filter '#Arch'"
 alias tdt="todoist-cli --color --header --indent list --filter '(tomorrow)'"
 alias td="todoist-cli --color --header --indent list --filter '(today | overdue)'"
 
-
+alias test="test"
 
 
 
