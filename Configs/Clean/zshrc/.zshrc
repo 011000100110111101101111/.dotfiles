@@ -11,7 +11,7 @@ source $ZSH/oh-my-zsh.sh
 eval "$(zoxide init zsh --cmd cd)"
 
 source $HOME/.local/.temp
-alias hosts="nvim $HOME/.local/.toks"
+alias hosts="nvim $HOME/.local/.temp"
 
 # TODIST cml
 source "/usr/share/todoist-cli/todoist_functions_fzf.sh"
@@ -20,10 +20,6 @@ alias tdp="todoist-cli --color --header --indent list --filter '(today | overdue
 alias tda="todoist-cli --color --header --indent list --filter '#Arch'"
 alias tdt="todoist-cli --color --header --indent list --filter '(tomorrow)'"
 alias td="todoist-cli --color --header --indent list --filter '(today | overdue)'"
-
-alias test="test"
-
-
 
 # Alias
 
