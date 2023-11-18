@@ -16,8 +16,13 @@ layout -n 6
 sleep 2
 hyprctl dispatch workspace 2
 layout -n 2
-sleep 2
+sleep 1
+hyprctl dispatch workspace 10
+layout -n 10
+sleep 1
+hyprctl dispatch workspace 9
 hyprctl dispatch workspace 1
 layout -n 1
 sleep 2
 dunstify -a "attention" -u normal "$USER@$HOSTNAME" "Welcome Back 🧠"
+playerctl play

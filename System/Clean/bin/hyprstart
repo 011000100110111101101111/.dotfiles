@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+sleep 2
 dunstify -a "attention" -u low "$USER@$HOSTNAME" "🏗️ Initializing Nexus 🏗️"
 sleep 3
 hyprctl dispatch workspace 6
@@ -7,7 +8,7 @@ sleep 2
 hyprctl dispatch workspace 5
 spotify &
 disown
-sleep 1
+sleep 2
 hyprctl dispatch workspace 4
 sleep 1
 hyprctl dispatch workspace 7

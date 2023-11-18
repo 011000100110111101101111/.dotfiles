@@ -14,6 +14,7 @@ mods
 moneymanagerex
 mpvpaper-git
 nerd-fonts-meta
+pipes-rs-git
 pokeget
 sddm-sugar-candy-git
 spotify
@@ -25,5 +26,7 @@ todoist-git
 waybar-hyprland-cava-git
 wlogout
 wlrobs
+xdg-desktop-portal-hyprland-git
+xwaylandvideobridge-git
 yay
 zoom

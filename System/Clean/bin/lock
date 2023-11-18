@@ -12,6 +12,7 @@ sleep 1
 hyprctl dispatch workspace 1
 
 ps -ef | rg weather_info | rg -v rg | awk '{print $2}' | xargs kill
+sleep 1
 eval "$HOME/.config/eww/bin/weather_info" &
 disown
 eval "$HOME/.config/eww/bin/date_info" &

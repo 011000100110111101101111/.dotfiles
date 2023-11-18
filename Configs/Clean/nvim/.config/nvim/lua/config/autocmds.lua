@@ -3,4 +3,4 @@
 -- Add any additional autocmds here
 
 vim.cmd("set foldmethod=marker")
-vim.cmd("TwilightEnable")
+--- vim.cmd("TwilightEnable")

@@ -88,6 +88,14 @@ case "$n_flag" in
 7) ;;
 8) ;;
 9) ;;
+10)
+	terminal "sshmaster"
+	terminal "sshworker"
+	terminal "sshworker"
+	terminal "sshworker"
+	terminal "sshworker"
+	terminal "sshworker"
+	;;
 *) exit 1 ;;
 esac
 
