@@ -70,9 +70,11 @@ nano
 nemo
 neofetch
 neovim
+net-tools
 network-manager-applet
 networkmanager
 networkmanager-openvpn
+nfs-utils
 nmap
 nodejs
 noto-fonts
@@ -81,10 +83,11 @@ noto-fonts-emoji
 noto-fonts-extra
 npm
 ntfs-3g
-nvidia-open-dkms
+nvidia-open
 nvtop
 obs-studio
 openresolv
+packer
 pacman-contrib
 php
 pipewire-alsa
@@ -118,6 +121,7 @@ steam
 stow
 swayidle
 termdown
+terraform
 thunderbird
 timeshift
 tldr

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 DIR=/tmp/eww
+API_CALL_FREQUENCY=300 # 5 minutes
 WEATHER_JSON="$DIR/open-weather.json"
 AIR_JSON="$DIR/air.json"
-WAIT=60
 valid_json="false"
 
 read -ra location <<<"$(<"$HOME/.local/.location")"
@@ -14,38 +14,31 @@ UNITS="imperial"
 WEATHER_URL="https://api.openweathermap.org/data/3.0/onecall?lat=$LAT&lon=$LON&units=$UNITS&exclude=minutely&appid=$API"
 AIR_URL="http://api.openweathermap.org/data/2.5/air_pollution?lat=$LAT&lon=$LON&appid=$API"
 
-online=1
-connection() {
-	nc -z 8.8.8.8 53 >/dev/null 2>&1
-	online=$?
-}
-
 get_json() {
 	echo "" >"$WEATHER_JSON"
-
-	while [[ "$online" -eq 1 ]]; do
-		valid_json="false"
-		connection
-		sleep 0.5
-	done
 
 	curl "$WEATHER_URL" | jq >"$WEATHER_JSON"
 	curl "$AIR_URL" | jq >"$AIR_JSON"
 
 	# test to see if the json is valid
-	if [[ "$(jq -r ".current.weather[0].id" "$WEATHER_JSON")" == "null" ]]; then
-		valid_json="false"
-	else
-		valid_json="true"
-	fi
+	# if [[ "$(jq -r ".current.weather[0].id" "$WEATHER_JSON")" == "null" ]]; then
+	# 	echo "False"
+	# 	valid_json="false"
+	# else
+	# 	echo "True"
+	# 	valid_json="true"
+	# fi
 }
 
 # https://openweathermap.org/api/one-call-3#hist_parameter
 while true; do
-	while [[ "$valid_json" == "false" ]]; do
-		get_json
-		sleep 1
-	done
+	# while [[ "$valid_json" == "false" ]]; do
+	# 	echo "Okay successful check..."
+	# 	get_json
+	# 	sleep 1
+	# done
+	get_json
+	sleep 1
 
 	id=$(jq -r ".current.weather[0].id" "$WEATHER_JSON")
 	desc=$(jq -r ".current.weather[0].main" "$WEATHER_JSON")
@@ -334,5 +327,5 @@ while true; do
         \"clouds\":\"$clouds\"\
     }" >'/tmp/eww/weather.json'
 
-	sleep "$WAIT"
+	sleep "$API_CALL_FREQUENCY"
 done
