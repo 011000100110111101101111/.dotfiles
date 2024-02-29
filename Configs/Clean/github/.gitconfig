@@ -1,6 +1,17 @@
 [user]
-	email = 62304179+011000100110111101101111@users.noreply.github.com
-	name = null
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBwEfY4oFR0gc5aqdWWhWJq+0x+9qA1m4sRW+lOgE3B
+  email = 62304179+011000100110111101101111@users.noreply.github.com
+	name = alex
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/opt/1Password/op-ssh-sign"
+
+[commit]
+  gpgsign = true
+
 [oh-my-zsh]
 	hide-status = 1
 	hide-dirty = 1
