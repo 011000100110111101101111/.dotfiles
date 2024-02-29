@@ -9,7 +9,7 @@
   :initial 0
   'while true; do echo 0; sleep 5; echo 1; sleep 5; done'
 )
-(defvar browser "firefox")
+(defvar browser "microsoft-edge-stable")
 (defvar terminal "kitty")
 
 ;; }}}
@@ -33,7 +33,7 @@
 ; =============================================================================
 
 (defwindow today
-  :monitor 1 
+  :monitor 0 
   :stacking "bg" 
   :exclusive false 
   :focusable false
@@ -64,7 +64,7 @@
   (eventbox
     :onhover "eww update weather-info=true"
     :onhoverlost "eww update weather-info=false"
-    :onclick "firefox https://www.windy.com/-Temperature-temp?temp,36.915,-74.971,4 & disown"
+    :onclick "microsoft-edge-stable https://www.windy.com/-Temperature-temp?temp,36.915,-74.971,4 & disown"
     :cursor "pointer"
     (box
       :class "weather ${weather-info ? "weather-hover" : "" }"
@@ -363,7 +363,7 @@
 
 
 (defwindow computer
-  :monitor 1 :stacking "bg" :exclusive false :focusable false
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
   :geometry (geometry :anchor "top right" :x "100px")
   (box
     :halign "end" :space-evenly false :spacing 0
@@ -876,7 +876,7 @@
 
 
 (defwindow user
-  :monitor 1 :stacking "bg" :exclusive false :focusable false
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
   :geometry (geometry :anchor "top right" :y "-3px" )
   (box :halign "end" :space-evenly false :spacing 0
     (user)
@@ -909,7 +909,7 @@
 
 
 (defwindow assistant
-  :monitor 1 :stacking "overlay" :exclusive false :focusable false
+  :monitor 0 :stacking "overlay" :exclusive false :focusable false
   :geometry (geometry :anchor "top left" :y "-3px" )
   (assistant)
 )
@@ -933,8 +933,8 @@
 
 
 (defwindow albumArt
-  :monitor 1 :stacking "bg" :exclusive false :focusable false
-  :geometry (geometry :anchor "bottom right" :x "2%" :y "3%")
+  :monitor 2 :stacking "bg" :exclusive false :focusable false
+  :geometry (geometry :anchor "bottom right" :x "84%" :y "72%")
   (albumArt)
 )
 ;; 💿 albumArt {{{
@@ -968,7 +968,7 @@
 
 
 (defwindow music
-  :monitor 1 :stacking "bg" :exclusive false :focusable false
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
   :geometry (geometry :anchor "top left" :x "0px")
   (box
     :halign "start" :space-evenly false :spacing 0
@@ -1238,7 +1238,7 @@
 ; }}}
 
 (defwindow workspaces
-  :monitor 1 :stacking "bottom" :exclusive false :focusable false
+  :monitor 0 :stacking "bottom" :exclusive false :focusable false
   :geometry (geometry :anchor "center right" :x "11%" :y "0px")
   (workspaces)
 )
@@ -1315,7 +1315,7 @@
 ;; }}}
 
 (defwindow screenctl
-  :monitor 1 :stacking "bg" :exclusive false :focusable false
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
   :geometry (geometry :anchor "top right" :y "1260px")
   (screenctl)
 )
@@ -1348,7 +1348,7 @@
 ; }}}
 
 (defwindow network
-  :monitor 1 :stacking "bg" :exclusive false :focusable false
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
   :geometry (geometry :anchor "top right" :y "80px" )
   (network)
 )
@@ -1440,8 +1440,8 @@
 
 
 (defwindow dunst
-  :monitor 1 :stacking "bg" :exclusive false :focusable false
-  :geometry (geometry :anchor "bottom right" :y "18%" )
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
+  :geometry (geometry :anchor "bottom right" :y "10%" )
   (dunst)
 )
 ; 🔔 dunst: {{{
@@ -1488,7 +1488,7 @@
 
 
 (defwindow systemctl
-  :monitor 1 :stacking "bg" :exclusive false :focusable false
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
   :geometry (geometry :anchor "bottom right" :y "1255px" )
   (systemctl)
 )
@@ -1541,7 +1541,7 @@
 
 
 (defwindow pacman
-  :monitor 1 :stacking "bg" :exclusive true :focusable false
+  :monitor 0 :stacking "bg" :exclusive true :focusable false
   :geometry (geometry :anchor "bottom right" :x "-22px" :y "170px" )
   (pacman)
 )

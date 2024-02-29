@@ -36,10 +36,10 @@ hyprctl dispatch workspace 6
 
 browser() {
 	if [[ "$2" == "tab" ]]; then
-		firefox "$1" &
+		microsoft-edge-stable "$1" &
 		sleep 1.5
 	else
-		firefox --new-window "$1" &
+		microsoft-edge-stable --new-window "$1" &
 		sleep 1.5
 	fi
 }
@@ -71,30 +71,30 @@ hyprctl dispatch workspace "$n_flag"
 case "$n_flag" in
 1)
 	terminal "homepage"
-	browser "https://calendar.google.com/calendar/u/0/r"
-	browser "https://app.todoist.com/app/today" tab
 	;;
 2)
-	browser "https://www.udemy.com/home/my-courses/learning/"
-	browser
 	;;
 3) ;;
 4) ;;
 5) ;;
-6)
-	browser "https://www.amazon.com/Amazon-Video/b?node=2858778011"
-	browser "https://www.youtube.com/" tab
+6)	
 	;;
-7) ;;
+7) 
+  browser "https://calendar.google.com/calendar/u/0/r"
+  browser "https://outlook.live.com/mail/0/" tab
+	browser "https://app.todoist.com/app/today" tab
+  ;;
 8) ;;
-9) ;;
+9) 
+  browser "https://www.youtube.com/"
+  browser "https://www.reddit.com/" tab 
+  browser "https://www.twitch.tv/" tab
+  browser "https://www.google.com/" tab
+  ;;
 10)
-	terminal "sshmaster"
-	terminal "sshworker"
-	terminal "sshworker"
-	terminal "sshworker"
-	terminal "sshworker"
-	terminal "sshworker"
+  browser "https://lowell.umassonline.net/ultra/course"
+  browser "https://chat.openai.com/" tab
+  browser "https://www.google.com/" tab
 	;;
 *) exit 1 ;;
 esac

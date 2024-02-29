@@ -32,6 +32,5 @@ fi
 echo $sound
 echo $SOUND_PATH
 paplay "$SOUND_PATH/$sound.ogg" &
-disown
 
 exit 0
