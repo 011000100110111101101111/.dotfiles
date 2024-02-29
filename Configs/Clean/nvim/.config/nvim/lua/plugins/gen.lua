@@ -5,17 +5,17 @@ return {
     event = "VeryLazy",
     keys = function()
       return {
-        { "<leader>cs", "<cmd>ChatGPT prompt_prefix=💭<cr>", desc = "ChatGPT Prompt" },
+        { "<leader>cs", "<cmd>ChatGPT<cr>", desc = "ChatGPT Prompt" },
         {
           "<leader>ce",
-          "<cmd>ChatGPTRun explain_code prompt_prefix=🧠<cr>",
+          "<cmd>ChatGPTRun explain_code<cr>",
           mode = "v",
           desc = "ChatGPT Explain Code",
         },
-        { "<leader>cc", "<cmd>ChatGPTRun add_tests prompt_prefix=🧪<cr>", desc = "ChatGPT Add Tests" },
+        { "<leader>cc", "<cmd>ChatGPTRun add_tests<cr>", desc = "ChatGPT Add Tests" },
         {
           "<leader>ci",
-          "<cmd>ChatGPTEditWithInstructions prompt_prefix=🏗️<cr>",
+          "<cmd>ChatGPTEditWithInstructions<cr>",
           desc = "ChatGPT Interactive Edit",
         },
       }
