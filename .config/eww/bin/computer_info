@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Example for NVIDIA GPUs using nvidia-smi
+gpu_info=$(nvidia-smi --query-gpu=name,temperature.gpu,memory.total,memory.used,utilization.memory,utilization.gpu,fan.speed,power.draw,power.limit --format=csv,noheader,nounits)
+# Extracting values from the nvidia-smi output
+gpu_name=$(echo "$gpu_info" | cut -d ',' -f 1)
+temperature=$(echo "$gpu_info" | cut -d ',' -f 2)
+total=$(echo "$gpu_info" | cut -d ',' -f 3)
+used=$(echo "$gpu_info" | cut -d ',' -f 4)
+mem_busy=$(echo "$gpu_info" | cut -d ',' -f 5)
+gpu_busy=$(echo "$gpu_info" | cut -d ',' -f 6)
+fan_speed=$(echo "$gpu_info" | cut -d ',' -f 7)
+power_draw=$(echo "$gpu_info" | cut -d ',' -f 8)
+power_limit=$(echo "$gpu_info" | cut -d ',' -f 9)
+
+vram=$(bc -l <<<"$used/$total * 100" | awk '{print int($1+0.5)}')
+
+echo "{\
+    \"mem_busy\":\"$mem_busy\", \
+    \"gpu_busy\":\"$gpu_busy\", \
+    \"vram\":\"$vram\", \
+    \"used\":\"$used\", \
+    \"fan_speed\":\"$fan_speed\" \
+    \"power_draw\":\"$power_draw\", \
+    \"power_limit\":\"$power_limit\", \
+    \"temp\":\"$power_limit\" \
+}"
+
+exit 0

@@ -1,0 +1,412 @@
+{
+  "Parameters": {
+    "cmd_focused_window": "hyprctl activewindow",
+    "importer": {
+      "match_line": ".*::(.+?)::(.+?)::(.+?)::.*",
+      "position_group": 1,
+      "position_keybinding": 2,
+      "position_label": 3
+    },
+    "keys": {
+      "tab_previous": "Backtab",
+      "tab_next": "Tab",
+      "scroll_down": "Down",
+      "scroll_up": "Up",
+      "quit": "Esc"
+    },
+    "layout": {
+      "width": 1500,
+      "height": 1200,
+      "n_columns": 3,
+      "spacing": 3,
+      "background_color": "#282C34",
+      "opacity": 0.95,
+      "tabs": {
+        "background_color": "#282C34",
+        "background_color_current": "#3E4451",
+        "color": "#E5E9F0",
+        "font": "Dancing Script",
+        "font_size": 12,
+        "padding": 0
+      },
+      "group_name": {
+        "background_color": "#FFF08F",
+        "color": "#000000",
+        "bold": true,
+        "stretched": false,
+        "padding": "0px 5px 0px 2px",
+        "font": "Lato",
+        "font_size": 10
+      },
+      "shortcut": {
+        "label": {
+          "color": "#EEEEEE",
+          "bold": false,
+          "font": "Lato",
+          "font_size": 10
+        },
+        "value": {
+          "color": "#D19A66",
+          "bold": true,
+          "font": "Lato",
+          "font_size": 10
+        },
+        "spacing": 5
+      }
+    }
+  },
+  "Rules": {
+    "default": "default"
+  },
+  "Keybindings": {
+    "Hyprland": {
+      "_hidden": false,
+      "Window Management": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "SUPER 1",
+            "label": "Workspace 1"
+          },
+          {
+            "value": "SUPER 2",
+            "label": "Workspace 2"
+          },
+          {
+            "value": "SUPER 3",
+            "label": "Workspace 3"
+          },
+          {
+            "value": "SUPER 4",
+            "label": "Workspace 4"
+          },
+          {
+            "value": "SUPER 5",
+            "label": "Workspace 5"
+          },
+          {
+            "value": "SUPER 6",
+            "label": "Workspace 6"
+          },
+          {
+            "value": "SUPER 7",
+            "label": "Workspace 7"
+          },
+          {
+            "value": "SUPER 8",
+            "label": "Workspace 8"
+          },
+          {
+            "value": "SUPER 9",
+            "label": "Workspace 9"
+          },
+          {
+            "value": "SUPER 0",
+            "label": "Workspace 10"
+          },
+          {
+            "value": "CTRL SUPER 1",
+            "label": "Workspace 11"
+          },
+          {
+            "value": "CTRL SUPER 2",
+            "label": "Workspace 12"
+          },
+          {
+            "value": "SUPER SHIFT 1",
+            "label": "Move Window to Workspace 1"
+          },
+          {
+            "value": "SUPER SHIFT 2",
+            "label": "Move Window to Workspace 2"
+          },
+          {
+            "value": "SUPER SHIFT 3",
+            "label": "Move Window to Workspace 3"
+          },
+          {
+            "value": "SUPER SHIFT 4",
+            "label": "Move Window to Workspace 4"
+          },
+          {
+            "value": "SUPER SHIFT 5",
+            "label": "Move Window to Workspace 5"
+          },
+          {
+            "value": "SUPER SHIFT 6",
+            "label": "Move Window to Workspace 6"
+          },
+          {
+            "value": "SUPER SHIFT 7",
+            "label": "Move Window to Workspace 7"
+          },
+          {
+            "value": "SUPER SHIFT 8",
+            "label": "Move Window to Workspace 8"
+          },
+          {
+            "value": "SUPER SHIFT 9",
+            "label": "Move Window to Workspace 9"
+          },
+          {
+            "value": "SUPER SHIFT 0",
+            "label": "Move Window to Workspace 10"
+          },
+          {
+            "value": "CTRL SUPER SHIFT 1",
+            "label": "Move Window to Workspace 11"
+          },
+          {
+            "value": "CTRL SUPER SHIFT 2",
+            "label": "Move Window to Workspace 12"
+          },
+          {
+            "value": "SUPER LEFT",
+            "label": "Focus Window Left"
+          },
+          {
+            "value": "SUPER RIGHT",
+            "label": "Focus Window Right"
+          },
+          {
+            "value": "SUPER UP",
+            "label": "Focus Window Up"
+          },
+          {
+            "value": "SUPER DOWN",
+            "label": "Focus Window Down"
+          },
+          {
+            "value": "SUPER H",
+            "label": "Move Window Up"
+          },
+          {
+            "value": "SUPER J",
+            "label": "Move Window Left"
+          },
+          {
+            "value": "SUPER K",
+            "label": "Move Window Right"
+          },
+          {
+            "value": "SUPER L",
+            "label": "Move Window Down"
+          },
+          {
+            "value": "SUPER SHIFT H",
+            "label": "Swap Window Up"
+          },
+          {
+            "value": "SUPER SHIFT J",
+            "label": "Swap Window Left"
+          },
+          {
+            "value": "SUPER SHIFT K",
+            "label": "Swap Window Right"
+          },
+          {
+            "value": "SUPER SHIFT L",
+            "label": "Swap Window Down"
+          }
+        ]
+      },
+      "Application": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "SUPER Z",
+            "label": "Open Kitty"
+          },
+          {
+            "value": "SUPER X",
+            "label": "Open Rofi"
+          },
+          {
+            "value": "SUPER SHIFT X",
+            "label": "Open Rofi Emoji"
+          },
+          {
+            "value": "SUPER C",
+            "label": "Open Nemo"
+          }
+        ]
+      },
+      "Scratchpad": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "SUPER A",
+            "label": "Open Kitty"
+          }
+        ]
+      },
+      "Screencapture": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "SUPER PRINT",
+            "label": "Screenshot to clipboard"
+          },
+          {
+            "value": "SUPER SHIFT PRINT",
+            "label": "Screenshot to folder"
+          },
+          {
+            "value": "CTRL SUPER SHIFT V",
+            "label": "Screen Record"
+          },
+          {
+            "value": "CTRL SUPER SHIFT U",
+            "label": "Screen Record Section"
+          },
+          {
+            "value": "CTRL SUPER SHIFT O",
+            "label": "Stop Screen Record"
+          }
+        ]
+      },
+      "System": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "SUPER ESCAPE",
+            "label": "Lockscreen"
+          }
+        ]
+      }
+    },
+    "Kitty": {
+      "_hidden": false,
+      "Window Management": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "ALT ENTER",
+            "label": "New Window"
+          },
+          {
+            "value": "ALT -",
+            "label": "New Window Vertically"
+          },
+          {
+            "value": "ALT =",
+            "label": "New Window Horizontally"
+          },
+          {
+            "value": "ALT S",
+            "label": "New Window Dynamically"
+          },
+          {
+            "value": "ALT R",
+            "label": "Rotate Current Split (Two Horizontal -> Two Vertical, etc)"
+          },
+          {
+            "value": "ALT H",
+            "label": "Move Window Up"
+          },
+          {
+            "value": "ALT J",
+            "label": "Move Window Left"
+          },
+          {
+            "value": "ALT K",
+            "label": "Move Window Right"
+          },
+          {
+            "value": "ALT L",
+            "label": "Move Window Down"
+          },
+          {
+            "value": "ALT UP",
+            "label": "Focus Window Up"
+          },
+          {
+            "value": "ALT LEFT",
+            "label": "Focus Window Left"
+          },
+          {
+            "value": "ALT RIGHT",
+            "label": "Focus Window Right"
+          },
+          {
+            "value": "ALT DOWN",
+            "label": "Focus Window Down"
+          },
+          {
+            "value": "ALT W",
+            "label": "Close Current Window"
+          },
+          {
+            "value": "ALT Q",
+            "label": "Close All Windows Except Current"
+          },
+          {
+            "value": "CTRL ALT LEFT",
+            "label": "Reduce Window Size Horizontally"
+          },
+          {
+            "value": "CTRL ALT RIGHT",
+            "label": "Increase Window Size Horizontally"
+          },
+          {
+            "value": "CTRL ALT UP",
+            "label": "Reduce Window Size Vertically"
+          },
+          {
+            "value": "CTRL ALT DOWN",
+            "label": "Increase Window Size Vertically"
+          }
+        ]
+      },
+      "Tabs": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "ALT SHIFT T",
+            "label": "New Tab"
+          },
+          {
+            "value": "ALT SHIFT D",
+            "label": "New Tab In Current Directory"
+          },
+          {
+            "value": "ALT SHIFT RIGHT",
+            "label": "Select Next Tab"
+          },
+          {
+            "value": "ALT SHIFT LEFT",
+            "label": "Select Previous Tab"
+          },
+          {
+            "value": "ALT SHIFT R",
+            "label": "Set Tab Title"
+          },
+          {
+            "value": "ALT SHIFT S",
+            "label": "Select A Tab (Interactive)"
+          },
+          {
+            "value": "ALT SHIFT K",
+            "label": "Move To Next Tab"
+          },
+          {
+            "value": "ALT SHIFT J",
+            "label": "Move To Previous Tab"
+          },
+          {
+            "value": "ALT SHIFT W",
+            "label": "Close Current Tab"
+          },
+          {
+            "value": "ALT SHIFT Q",
+            "label": "Close All Tabs Except Current"
+          },
+          {
+            "value": "ALT SHIFT M",
+            "label": "Move Window To A Tab (Interactive)"
+          }
+        ]
+      }
+    }
+  }
+}

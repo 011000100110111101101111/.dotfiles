@@ -1,0 +1,1575 @@
+;; ============================================================================
+;; 🧰 setup {{{
+
+(deflisten cycle-6
+  :initial 0
+  'while true; do echo 0; sleep 6; echo 1; sleep 6; done'
+)
+(deflisten cycle-5
+  :initial 0
+  'while true; do echo 0; sleep 5; echo 1; sleep 5; done'
+)
+(defvar browser "microsoft-edge-stable")
+(defvar terminal "kitty")
+
+;; }}}
+; ♻️  widgets: {{{
+
+; Combination of slide and fade revealer ⮯
+; See: https://elkowar.github.io/eww/widgets.html#revealer
+(defwidget slide-n-fade [direction bool]
+  (revealer
+    :transition "slide${direction}"
+    :reveal bool
+    (revealer
+      :transition "crossfade"
+      :reveal bool
+      (children)
+    )
+  )
+)
+
+; }}}
+; =============================================================================
+
+(defwindow today
+  :monitor 0 
+  :stacking "bg" 
+  :exclusive false 
+  :focusable false
+  :geometry (geometry :anchor "top center" :width "1600px")
+  (centerbox
+    (weather) (time) (date)
+  )
+)
+; 🌧️ weather: {{{
+
+(deflisten weather
+  :initial `{"id":"", "icon":" ", "desc":"", "bf_icon":" ", "wind_speed":"0",  "sunset":"",  "moon":" ", "night": "false", "temp":"", "temp_morn":"", "temp_day":"", "temp_max":"", "temp_eve":"",  "temp_night":"",  "feels_like":"", "uvi":"0",  "aqi":"",  "rain_1h":"",  "rain_day":"",  "clouds":""}`
+  'tail -F /tmp/eww/weather.json 2> /dev/null'
+)
+(defvar weather-info false)
+
+(defwidget daily-temp [temp margin color]
+  (label
+    :class "weather-${cycle-5 == 1 ? "${color}" : "base-alt" }"
+    :markup "${temp}"
+    :style "font-size: 0.7em; margin-top: ${margin}px;"
+    :tooltip " ${color} ${temp}  "
+  )
+)
+
+(defwidget weather []
+  (eventbox
+    :onhover "eww update weather-info=true"
+    :onhoverlost "eww update weather-info=false"
+    :onclick "microsoft-edge-stable https://www.windy.com/-Temperature-temp?temp,36.915,-74.971,4 & disown"
+    :cursor "pointer"
+    (box
+      :class "weather ${weather-info ? "weather-hover" : "" }"
+      :halign "end" :space-evenly false :spacing 8
+      (label
+        :class "weather-${cycle-6 == 0 ?
+               "${matches("${weather.night}", "true") ? "night" : "day"}"
+               : "base-alt"
+        }"
+        :markup "<b><tt>${weather.icon}</tt>${weather.temp}<sup> </sup></b>"
+        :style "margin-right: -6px;"
+        :tooltip "  ${weather.icon}reported: ${weather.temp}   󰈷 feels: ${weather.feels_like}  "
+      )
+      (slide-n-fade :bool weather-info :direction "right"
+        (box :space-evenly false :spacing 3
+          (label
+            :class "weather-${cycle-6 == 0 ?
+                  "${matches("${weather.night}", "true") ? "night" : "day"}"
+                  : "base-alt"
+            }"
+            :markup " <small>${weather.feels_like}<sup> </sup></small>"
+            :style "font-size: 0.8em; margin-right: 6px;"
+            :tooltip "  󰈷 Feels like: ${weather.feels_like}  "
+          )
+          (daily-temp :temp {weather.temp_morn} :margin 12 :color "morning")
+          (daily-temp :temp {weather.temp_day} :margin -2 :color "day")
+          (daily-temp :temp {weather.temp_max} :margin -10 :color "max")
+          (daily-temp :temp {weather.temp_eve} :margin 4 :color "evening")
+          (daily-temp :temp {weather.temp_night} :margin 12 :color "night")
+        )
+      )
+      (label
+        :class "weather-${cycle-6 == 1 ? "air" : "base-alt" }"
+        :markup "<b>${weather.desc}</b>"
+        :style "margin-top: 2px; margin-left: ${weather-info ? "2" : "-4"}px;"
+        :tooltip "  ${weather.icon}${weather.desc} with ${weather.clouds}% cloud coverage and a ${weather.bf_desc}  "
+      )
+      (slide-n-fade :bool weather-info :direction "right"
+          (label
+            :class "weather-${cycle-6 == 1 ? "air" : "base-alt" }"
+            :markup " <small>${weather.clouds}<small>%</small></small>"
+            :style "margin-top: 2px; margin-left: 2px;"
+            :tooltip "   ${weather.clouds}% cloud coverage "
+          )
+      )
+      (label
+        :class "weather-${cycle-6 == 1 ? "air" : "base-alt" }"
+        :markup "${weather.bf_icon}"
+        :style "margin: 6px ${weather-info ? "-4" : "-2"}px 0 ${weather-info ? "0" : "-6"}px;"
+        :tooltip "   ${weather.bf_icon}${weather.bf_desc} (${weather.wind_speed}m/s)  "
+      )
+      (slide-n-fade :bool weather-info :direction "right"
+        (label
+          :class "weather-${cycle-6 == 1 ? "air" : "base-alt" }"
+          :markup "<i><small>${weather.wind_speed}m<sup>-1</sup></small></i>"
+          :style "margin-top: 2px;"
+          :tooltip "   ${weather.bf_icon}${weather.bf_desc} (${weather.wind_speed}m/s)  "
+        )
+      )
+      (label
+        :class "weather-${cycle-5 == 0 ? "rain" : "base-alt" }"
+        :markup "<tt><small><sub> </sub>${weather-info ? "${weather.rain_day}" : "${weather.rain_1h}"}<small>%</small></small></tt>"
+        :style "margin-top: 6px; margin-left: ${weather-info ? "3px" : "-6px"};"
+        :tooltip "   ${weather.rain_day}% chance of rain today, ${weather.rain_1h}% in the next hour  "
+      )
+      (slide-n-fade :bool weather-info :direction "right"
+        (box :space-evenly false :spacing 8
+          (label
+            :class "weather-index-${cycle-5 == 1 ? "${weather.uvi_desc}" : "base"}"
+            :markup "<tt>󰓠<small> </small>${weather.uvi}</tt>"
+            :style "margin-top: 2px; margin-left: 4px;"
+            :tooltip "  󰓠 ultraviolet index: ${weather.uvi}, ${weather.uvi_desc} "
+          )
+          (label
+            :class "weather-index-${cycle-5 == 1 ? "${weather.uvi_desc}" : "base"}"
+            :markup "<tt><small> </small>${weather.aqi}</tt>"
+            :style "margin-top: 2px; margin-left: 2px;"
+            :tooltip "   air quality index: ${weather.aqi}, ${weather.aqi_desc} "
+          )
+        )
+      )
+      (label
+        :class "weather-moon${weather.moon == " " ? "-full" : ""}"
+        :text "${weather.moon}"
+        :style "
+          margin-top: -8px;
+          margin-left: ${weather-info ? "-2" : "-12" }px;
+          transition: margin 0.25s ease-out;
+          "
+        :tooltip "  ${weather.moon} ${weather.moon_desc}  "
+      )
+    )
+  )
+)
+; }}}
+; 🕐 time: {{{
+
+(defvar hour-active false)
+(defvar minute-active false)
+(defvar fine-adjust false)
+(defvar timer-visible false)
+(defvar timer-active false)
+(defvar alarm-active false)
+
+(defpoll time
+  :interval "1s"
+  :initial '{"hour":"04", "minute":"20", "second":"00"}'
+  `date +'{"hour":"%I", "minute":"%M", "second":"%S"}'`
+)
+
+(deflisten clockface-hour
+  :initial ""
+  'tail -F /tmp/eww/clockface-hour 2> /dev/null'
+)
+(deflisten clockface-minute
+  :initial ""
+  'tail -F /tmp/eww/clockface-minute 2> /dev/null'
+)
+(deflisten alarm-current
+  :initial "14:00"
+  'tail -F /tmp/eww/alarm 2> /dev/null'
+)
+(deflisten alarm-end
+  :initial "14:00"
+  'tail -F /tmp/eww/alarm-end 2> /dev/null'
+)
+(deflisten timer-current
+  :initial "01:30"
+  'tail -F /tmp/eww/timer 2> /dev/null'
+)
+
+(defwidget time []
+  (eventbox
+    :onhover "eww update timer-visible=true"
+    :onhoverlost "eww update timer-visible=false"
+    :onmiddleclick "eww update fine-adjust=${fine-adjust ? "false" : "true"}"
+    (box
+      :class "time ${timer-visible ? "time-hover" : ""}"
+      :halign "center"
+      :space-evenly false
+      :spacing 3
+      :style "padding: 0 ${timer-visible ? "0.9" : "1.318" }em;"
+      (alarm)
+      (clock :child "hour" :text {time.hour} :bool hour-active)
+      (clockface)
+      (clock :child "minute" :text {time.minute} :bool minute-active)
+      (timer)
+    )
+  )
+)
+
+(defwidget clock [child bool text]
+  (eventbox
+    :class "time-${child}"
+    :onhover "eww update ${child}-active=true"
+    :onhoverlost "eww update ${child}-active=false"
+    :onclick "${browser} https://calendar.google.com/calendar/u/0/r/eventedit?state=%5B%5D & disown"
+    :cursor "pointer"
+    :tooltip " ${child == "hour" ?
+      "  ${alarm-active ?  "set for ${alarm-end}" : "no active alarm"}" :
+      " 󰔟 ${timer-active ?  "${timer-current} remaining" : "no active timer"}"
+    } "
+    (label :class "time-${child}-${bool ? "active" : "text"} time-text" :text text)
+  )
+)
+
+(defwidget clockface []
+  (box
+    :class "time-clockface"
+    :orientation "v"
+    :valign "center"
+    :spacing -3
+    :space-evenly false
+    (clock :child "hour" :text "${clockface-hour} " :bool hour-active)
+    (clock :child "minute" :text "${clockface-minute} " :bool minute-active)
+  )
+)
+
+(defwidget time-revealer [app direction child bool icon text subtext]
+  (slide-n-fade
+    :bool timer-visible
+    :direction {direction == "left" ? "right" : "left"}
+    (eventbox
+      :class "time-${app} time-${child}-${bool ? "active" : "inactive" }"
+      :onhover "eww update ${child}-active=true"
+      :onhoverlost "eww update ${child}-active=false"
+      :onclick "bin/timer_info ${app}_status & disown"
+      :onscroll "bin/timer_info ${app} {} ${fine-adjust ? 1 : 15}"
+      :onrightclick "bin/timer_info reset ${app}"
+      :onmiddleclick "bin/timer_info ${app} ${fine-adjust ? 1 : 15}"
+      :cursor "pointer"
+      (box
+        :class "time-${app}" :space-evenly false :spacing 6
+        {direction == "left" ? text : ""}
+        (box
+          :orientation "v"
+          :valign "center"
+          :space-evenly false
+          :spacing 1
+          (label :class "time-${app}-icon" :text icon)
+          (label :class "time-${app}-subtext" :text subtext)
+        )
+        {direction == "right" ? text : "" }
+      )
+    )
+  )
+)
+
+(defwidget alarm []
+  (time-revealer
+    :app "alarm"
+    :direction "left"
+    :child "hour"
+    :bool hour-active
+    :text alarm-current
+    :icon ""
+    :subtext {fine-adjust ? "󱤺" : "󰪽"}
+  )
+)
+
+(defwidget timer []
+  (time-revealer
+    :app "timer"
+    :direction "right"
+    :child "minute"
+    :bool minute-active
+    :text timer-current
+    :icon "󰔟"
+    :subtext {time.second}
+  )
+)
+; }}}
+; 📅 date: {{{
+
+(deflisten weeks_alive
+  :initial "4732"
+  'tail -F /tmp/eww/weeks_alive 2> /dev/null'
+)
+(deflisten date
+  :initial `{"weekday":"?", "month":"?", "day":"?"}`
+  'tail -F /tmp/eww/date 2> /dev/null'
+)
+(defvar date-hover false)
+
+(defwidget date []
+  (eventbox
+  :onhover "eww update date-hover=true"
+  :onhoverlost "eww update date-hover=false"
+  :onclick "${browser} https://calendar.google.com/calendar/u/0/r & disown"
+    (box
+    :class "date ${date-hover ? "date-hover" : ""}"
+    :halign "start"
+    :space-evenly false
+    :spacing 4
+      (slide-n-fade
+        :bool date-hover
+        :direction "left"
+        (label
+          :class "date-weeks date-${cycle-6 == 0 ? "dead" : "alive"}"
+          :markup "󰕶  ${weeks_alive}"
+          :style "margin-top: 3px; margin-right: 10px; margin-left: 6px;"
+          :tooltip "  󰕶 weeks survived: ${weeks_alive}  "
+        )
+      )
+      (label
+        :class "date-${cycle-6 == 0 ? "${date.weekday}" : "base"}"
+        :text " 󰃭 ${date.weekday}"
+        :style "margin-right: -4px; margin-left: -2px;"
+        :tooltip "  󰃭 ${date.weekday}, ${date.month} ${date.day} "
+      )
+      (label
+        :class "date-month date-${cycle-6 == 1 ? "base" : "base-alt"}"
+        :text ", ${date.month}"
+        :style "margin-top: 1px;"
+        :tooltip "  󰃭 ${date.weekday}, ${date.month} ${date.day} "
+      )
+      (label
+        :class "date-day date-${cycle-6 == 1 ? "base" : "base-alt"}"
+        :text "${date.day}"
+        :style "margin-top: 1px; margin-left: 2px;"
+        :tooltip "  󰃭 ${date.weekday}, ${date.month} ${date.day} "
+      )
+      (slide-n-fade :bool date-hover :direction "right"
+        (label
+          :class "date-${cycle-6 == 0 ? "dead" : "alive"}"
+          :markup " ${weather.sunset}"
+          :style "margin-top: 2px; margin-left: 6px;"
+          :tooltip "   sunset: ${weather.sunset}  "
+        )
+      )
+    )
+  )
+)
+
+; }}}
+
+
+(defwindow computer
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
+  :geometry (geometry :anchor "top right" :x "100px" :width "800px")
+  (box
+    :halign "end" :space-evenly false :spacing 0
+    :class "tr-m"
+    :style "margin-right: ${user-hover ? 100 : 5 }px;"
+    (cpu) (memory)
+  )
+)
+; 💻 computer: {{{
+
+(defpoll sensors
+  :interval "0.5s"
+  :initial `{
+   "coretemp-isa-0000":{
+      "Adapter": "ISA adapter",
+      "Package id 0":{
+         "temp1_input": 42.000,
+         "temp1_max": 86.000,
+         "temp1_crit": 100.000,
+         "temp1_crit_alarm": 0.000
+      },
+      "Core 0":{
+         "temp2_input": 42.000,
+         "temp2_max": 86.000,
+         "temp2_crit": 100.000,
+         "temp2_crit_alarm": 0.000
+      },
+      "Core 1":{
+         "temp3_input": 41.000,
+         "temp3_max": 86.000,
+         "temp3_crit": 100.000,
+         "temp3_crit_alarm": 0.000
+      },
+      "Core 2":{
+         "temp4_input": 41.000,
+         "temp4_max": 86.000,
+         "temp4_crit": 100.000,
+         "temp4_crit_alarm": 0.000
+      },
+      "Core 3":{
+         "temp5_input": 38.000,
+         "temp5_max": 86.000,
+         "temp5_crit": 100.000,
+         "temp5_crit_alarm": 0.000
+      },
+      "Core 4":{
+         "temp6_input": 39.000,
+         "temp6_max": 86.000,
+         "temp6_crit": 100.000,
+         "temp6_crit_alarm": 0.000
+      },
+      "Core 5":{
+         "temp7_input": 42.000,
+         "temp7_max": 86.000,
+         "temp7_crit": 100.000,
+         "temp7_crit_alarm": 0.000
+      },
+      "Core 6":{
+         "temp8_input": 43.000,
+         "temp8_max": 86.000,
+         "temp8_crit": 100.000,
+         "temp8_crit_alarm": 0.000
+      },
+      "Core 7":{
+         "temp9_input": 41.000,
+         "temp9_max": 86.000,
+         "temp9_crit": 100.000,
+         "temp9_crit_alarm": 0.000
+      }
+   },
+   "it8792-isa-0a60":{
+      "Adapter": "ISA adapter",
+      "in0":{
+         "in0_input": 0.676,
+         "in0_min": 0.000,
+         "in0_max": 2.780,
+         "in0_alarm": 0.000,
+         "in0_beep": 0.000
+      },
+      "in1":{
+         "in1_input": 0.676,
+         "in1_min": 0.000,
+         "in1_max": 2.780,
+         "in1_alarm": 0.000,
+         "in1_beep": 0.000
+      },
+      "in2":{
+         "in2_input": 1.036,
+         "in2_min": 0.000,
+         "in2_max": 2.780,
+         "in2_alarm": 0.000,
+         "in2_beep": 0.000
+      },
+      "+3.3V":{
+         "in3_input": 3.357,
+         "in3_min": 0.000,
+         "in3_max": 5.559,
+         "in3_alarm": 0.000,
+         "in3_beep": 0.000
+      },
+      "in4":{
+         "in4_input": 1.243,
+         "in4_min": 0.000,
+         "in4_max": 2.780,
+         "in4_alarm": 0.000,
+         "in4_beep": 0.000
+      },
+      "in5":{
+         "in5_input": 1.504,
+         "in5_min": 0.000,
+         "in5_max": 2.780,
+         "in5_alarm": 0.000,
+         "in5_beep": 0.000
+      },
+      "in6":{
+         "in6_input": 2.780,
+         "in6_min": 0.000,
+         "in6_max": 2.780,
+         "in6_alarm": 1.000,
+         "in6_beep": 0.000
+      },
+      "3VSB":{
+         "in7_input": 3.314,
+         "in7_min": 0.000,
+         "in7_max": 5.559,
+         "in7_alarm": 0.000,
+         "in7_beep": 0.000
+      },
+      "Vbat":{
+         "in8_input": 3.248
+      },
+      "fan1":{
+         "fan1_input": 664.000,
+         "fan1_min": 0.000,
+         "fan1_alarm": 0.000,
+         "fan1_beep": 1.000
+      },
+      "fan2":{
+         "fan2_input": 0.000,
+         "fan2_min": 0.000,
+         "fan2_alarm": 0.000,
+         "fan2_beep": 1.000
+      },
+      "fan3":{
+         "fan3_input": 0.000,
+         "fan3_min": 0.000,
+         "fan3_alarm": 0.000,
+         "fan3_beep": 1.000
+      },
+      "temp1":{
+         "temp1_input": 47.000,
+         "temp1_max": 127.000,
+         "temp1_min": 127.000,
+         "temp1_alarm": 0.000,
+         "temp1_type": 4.000,
+         "temp1_offset": 0.000,
+         "temp1_beep": 1.000
+      },
+      "temp2":{
+         "temp2_input": -55.000,
+         "temp2_max": 127.000,
+         "temp2_min": 127.000,
+         "temp2_alarm": 0.000,
+         "temp2_type": 4.000,
+         "temp2_offset": 0.000,
+         "temp2_beep": 1.000
+      },
+      "temp3":{
+         "temp3_input": 46.000,
+         "temp3_max": 127.000,
+         "temp3_min": 127.000,
+         "temp3_alarm": 0.000,
+         "temp3_type": 4.000,
+         "temp3_offset": 0.000,
+         "temp3_beep": 1.000
+      },
+      "intrusion0":{
+         "intrusion0_alarm": 1.000
+      }
+   },
+   "nvme-pci-0300":{
+      "Adapter": "PCI adapter",
+      "Composite":{
+         "temp1_input": 50.850,
+         "temp1_max": 81.850,
+         "temp1_min": -273.150,
+         "temp1_crit": 84.850,
+         "temp1_alarm": 0.000
+      },
+      "Sensor 1":{
+         "temp2_input": 50.850,
+         "temp2_max": 65261.850,
+         "temp2_min": -273.150
+      },
+      "Sensor 2":{
+         "temp3_input": 54.850,
+         "temp3_max": 65261.850,
+         "temp3_min": -273.150
+      }
+   },
+   "acpitz-acpi-0":{
+      "Adapter": "ACPI interface",
+      "temp1":{
+         "temp1_input": 27.800
+      }
+   },
+   "iwlwifi_1-virtual-0":{
+      "Adapter": "Virtual device",
+      "temp1":{
+         "temp1_input": 34.000
+      }
+   },
+   "pch_cannonlake-virtual-0":{
+      "Adapter": "Virtual device",
+      "temp1":{
+         "temp1_input": 64.000
+      }
+   },
+   "nvme-pci-0200":{
+      "Adapter": "PCI adapter",
+      "Composite":{
+         "temp1_input": 45.850,
+         "temp1_max": 84.850,
+         "temp1_min": -273.150,
+         "temp1_crit": 84.850,
+         "temp1_alarm": 0.000
+      },
+      "Sensor 1":{
+         "temp2_input": 45.850,
+         "temp2_max": 65261.850,
+         "temp2_min": -273.150
+      },
+      "Sensor 2":{
+         "temp3_input": 49.850,
+         "temp3_max": 65261.850,
+         "temp3_min": -273.150
+      }
+   }
+}`
+  `sensors -j`
+)
+; Update `define_builtin_vars! { Duration::new(0, 500000000)` in inbuilt.rs
+; Default is (2, 0), but I like updates of 0.5 seconds for cpu polling.
+(defwidget num-to-block [load]
+  (label
+    :text {
+      load < 12.5  ? "▁" :
+      load < 25    ? "▂" :
+      load < 37.5  ? "▃" :
+      load < 50    ? "▄" :
+      load < 62.5  ? "▅" :
+      load < 75    ? "▆" :
+      load < 88.5  ? "▇" : "█"
+    }
+    :class "tr-c ramp-${
+      load < 5   ? "1" :
+      load < 10  ? "2" :
+      load < 20  ? "3" :
+      load < 30  ? "4" :
+      load < 40  ? "5" :
+      load < 50  ? "6" :
+      load < 60  ? "7" :
+      load < 70  ? "8" :
+      load < 80  ? "9" :
+      load < 90  ? "10" :
+      load < 95  ? "11" : "12"
+    }"
+  )
+)
+
+(defwidget label-ramp [icon ?val percent bool ?direction]
+  (box
+    :space-evenly false
+    :spacing 5
+    :class "tr-c ramp-${
+      percent < 25  ? "3"  :
+      percent < 35  ? "4"  :
+      percent < 50  ? "5"  :
+      percent < 65  ? "6"  :
+      percent < 80  ? "7"  :
+      percent < 85  ? "8"  :
+      percent < 90  ? "9" :
+      percent < 95  ? "10" : "11"
+    }"
+    (label :markup icon)
+    (slide-n-fade :bool bool :direction "right"
+      (label
+        :markup {strlength(val) > 0 ? val :
+          "${"${round(percent,0)}" < 10 ? "0${round(percent,0)}" : round(percent,0) }<small>%</small>"
+        }
+      )
+    )
+  )
+)
+
+(defwidget temp-ramp [current percent max bool ?direction ?extra]
+  (box
+    :space-evenly false
+    :spacing 6
+    :class "tr-c ramp-${
+      percent < 50  ? "3"  :
+      percent < 56  ? "4"  :
+      percent < 62  ? "5"  :
+      percent < 68  ? "6"  :
+      percent < 74  ? "7"  :
+      percent < 80  ? "8" :
+      percent < 86  ? "9" :
+      percent < 94  ? "10" : "11"
+    } ${current >= max ? "ramp-12" : ""}"
+    (label
+      :class "tr-a"
+      :text "${
+        percent < 50 ? "" :
+        percent < 56 ? "" :
+        percent < 80 ? "" :
+        percent < 90 ? "" : ""
+      }"
+    )
+    (slide-n-fade :bool bool :direction {strlength(direction) > 0 ? "${direction}" : "right"}
+      (label
+        :markup "${current}<sup></sup>${extra}"
+      )
+    )
+  )
+)
+
+(defvar cpu-hover false)
+(defvar cores "[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]")
+
+(defwidget cpu []
+  (eventbox
+    :onhover "eww update cpu-hover=true"
+    :onhoverlost "eww update cpu-hover=false"
+    :onclick "kitty --title='terminalfloat' -e bpytop & disown"
+    :cursor "pointer"
+    (box
+      :class "computerbox ${cpu-hover ? "computerbox-hover" : "" }"
+      :space-evenly false :spacing "${cpu-hover ? "12" : "8" }"
+      (temp-ramp
+        :current {round(sensors.coretemp-isa-0000['Package id 0'].temp1_input, 0)}
+        :percent {round(
+          sensors.coretemp-isa-0000['Package id 0'].temp1_input /
+          (sensors.coretemp-isa-0000['Package id 0'].temp1_max -
+          sensors.coretemp-isa-0000['Package id 0'].temp1_crit * -1) * 100
+        , 0)}
+        :max {sensors.coretemp-isa-0000['Package id 0'].temp1_crit}
+        :bool cpu-hover
+      )
+      (label-ramp
+        :icon ""
+        :percent {EWW_CPU.avg}
+        :bool cpu-hover
+      )
+      (box :space-evenly false :spacing 2
+        (for num in cores
+          (num-to-block :load {EWW_CPU.cores[num].usage})
+        )
+      )
+    )
+  )
+)
+
+(defvar range16 "[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]")
+(defvar memory-hover false)
+
+(defwidget memory []
+  (eventbox
+    :onhover "eww update memory-hover=true"
+    :onhoverlost "eww update memory-hover=false"
+    :onclick "kitty --title='terminalfloat' -e bpytop & disown"
+    :cursor "pointer"
+    (box
+      :class "computerbox ${memory-hover ? "computerbox-hover" : "" }"
+      :space-evenly false :spacing 8
+      (label-ramp
+        :icon "󰍛"
+        :percent {EWW_RAM.used_mem_perc}
+        :bool memory-hover
+      )
+      (box :space-evenly false :spacing 3
+        (for n in range16
+          (label
+            :text "󰇝"
+            :style "font-size: 1.1em;"
+            :class "ramp-${
+              EWW_RAM.used_mem_perc == 100 ? "12" : "${
+                EWW_RAM.used_mem_perc < n * 95 / 15 ? "1" : "${
+                  round(n / 2.1, 0) + 4
+                }"
+              }"
+            }"
+          )
+        )
+      )
+    )
+  )
+)
+
+(defpoll gpu
+  :interval "0.5s"
+  :initial `{ "mem_busy":"0", "gpu_busy":"0", "vram":"0", "used":"0", "fan_speed":"0", "power_draw":"0", "power_limit":"0", "temp":"0" }`
+  'bin/computer_info'
+)
+(defvar range8 "[0,1,2,3,4,5,6,7]")
+(defvar gpu-hover false)
+
+(defwidget gpu []
+ (eventbox
+    :onhover "eww update gpu-hover=true"
+    :onhoverlost "eww update gpu-hover=false"
+    :onclick "kitty --title='terminalfloat' -e nvtop & disown"
+    :cursor "pointer"
+    (box
+      :class "computerbox ${gpu-hover ? "computerbox-hover" : "" }"
+      :space-evenly false :spacing "${gpu-hover ? "16" : "8" }"
+      (gpu-temp)
+      (label-ramp
+        :icon "${
+            gpu.gpu_busy < 5  ? "󰋙" :
+            gpu.gpu_busy < 20 ? "󰫃" :
+            gpu.gpu_busy < 40 ? "󰫄" :
+            gpu.gpu_busy < 60 ? "󰫆" :
+            gpu.gpu_busy < 80 ? "󰫇" : "󰫈"
+        }"
+        :percent {gpu.gpu_busy}
+        :bool gpu-hover
+      )
+      (mclock)
+      (label-ramp
+        :icon ""
+        :percent {round(
+            gpu.power_draw /
+            gpu.power_limit * 100
+        ,0)}
+        :val "${round(gpu.power_draw,0)}<sub><b>W</b></sub>"
+        :bool gpu-hover
+     )
+      (label-ramp
+        :icon "󰈐"
+        :percent {round(
+            gpu.fan_speed /
+            100 * 100
+        ,0)}
+        :val "${round(gpu.fan_speed,0)}<sub><b>RPM</b></sub>"
+        :bool gpu-hover
+      )
+      (vram)
+    )
+  )
+)
+
+(defwidget gpu-temp []
+  (temp-ramp
+    :current {round(gpu.temp,0)}
+    :percent {round(
+      gpu.temp /
+      84  * 100
+    ,0)}
+    :max {sensors.amdgpu-pci-0d00.junction.temp2_crit}
+    :bool gpu-hover
+    :extra "|${round(sensors.amdgpu-pci-0d00.edge.temp1_input,0)}<sup></sup>|${round(sensors.amdgpu-pci-0d00.mem.temp3_input,0)}<sup></sup>"
+  )
+)
+
+(defwidget mclock []
+  (box :class "gpu-mclock" :space-evenly false :spacing 3
+    (label
+      :text "${gpu.mclk_level <= 1 ? "󰾆" : gpu.mclk_level <= 2 ? "󰾅" : "󰓅"}"
+      :class "tr-a ramp-${
+        gpu.mclk_level == 1 ? "4" :
+        gpu.mclk_level == 2 ? "5" :
+        gpu.mclk_level == 3 ? "8" : "3"
+      }"
+    )
+    (slide-n-fade :bool gpu-hover :direction "right"
+      (label
+        :markup "${gpu.mclk}<b><sub>MHz</sub></b>"
+        :class "tr-c ramp-${
+          gpu.mclk_level == 1 ? "3" :
+          gpu.mclk_level == 2 ? "5" :
+          gpu.mclk_level == 3 ? "8" : "2"
+        }"
+      )
+    )
+  )
+)
+
+(defwidget vram []
+  (box :space-evenly false :spacing 2
+    (label-ramp
+      :icon "󰍛 "
+      :percent {gpu.mem_busy}
+      :bool gpu-hover
+    )
+    (box :class "tr-a" :space-evenly false :spacing 3
+      (for n in range8
+        (label
+          :text "󰇝"
+          :class " ramp-${
+            gpu.vram == 100 ? "12" : "${gpu.vram < n * 95 / 7 ? "1" : n + 4}"
+          }"
+          :style "font-size: 1.1em;"
+        )
+      )
+    )
+  )
+)
+
+; }}}
+
+
+(defwindow user
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
+  :geometry (geometry :anchor "top right" :y "-3px" )
+  (box :halign "end" :space-evenly false :spacing 0
+    (user)
+  )
+)
+; 🤓 user: {{{
+
+
+
+(defvar user-art-path `/home/alex/.config/eww/art/player.png`)
+(defvar user-hover false)
+(defwidget user []
+ (eventbox
+    :onhover "eww update user-hover=true"
+    :onhoverlost "eww update user-hover=false"
+    ; :onclick "${browser} https://twitter.com/home & disown"
+    ; :onmiddleclick "${browser} https://www.youtube.com/feed/subscriptions & disown"
+    ; :onrightclick "${browser} https://github.com/nosvagor & disown"
+    :onclick "${browser} https://chat.openai.com/chat?model=gpt-4 & disown"
+    :onrightclick "${browser} https://mail.google.com/mail/u/0/#inbox & disown"
+    :onmiddleclick "${browser} https://mail.google.com/mail/u/1/#inbox & disown"
+
+    (box :space-evenly false :spacing 0
+      :class "userbox ${user-hover ? "userbox-hover" : ""}"
+      :style "background-image: url('${user-art-path}');"
+    )
+  )
+)
+; }}}
+
+
+(defwindow assistant
+  :monitor 0 :stacking "overlay" :exclusive false :focusable false
+  :geometry (geometry :anchor "top left" :y "-3px" )
+  (assistant)
+)
+; ❄️  assistant: {{{
+(defvar assistant "/home/alex/.config/eww/art/yuki.png")
+(defvar assistant-hover false)
+(defwidget assistant []
+  (eventbox
+    :onhover "eww update assistant-hover=true"
+    :onhoverlost "eww update assistant-hover=false"
+    :onclick "${browser} https://chat.openai.com/chat?model=gpt-4 & disown"
+    :onrightclick "${browser} https://mail.google.com/mail/u/0/#inbox & disown"
+    :onmiddleclick "${browser} https://mail.google.com/mail/u/1/#inbox & disown"
+    (box
+      :class "assistantbox ${assistant-hover ? "assistantbox-hover" : ""}"
+      :style "background-image: url('${assistant}')"
+    )
+  )
+)
+; }}}
+
+
+(defwindow albumArt
+  :monitor 2 :stacking "bg" :exclusive false :focusable false
+  :geometry (geometry :anchor "bottom right" :x "84%" :y "72%")
+  (albumArt)
+)
+;; 💿 albumArt {{{
+(defvar music-hover false)
+
+(defwidget albumArt []
+  (eventbox
+    :onhover "eww update music-hover=true"
+    :onhoverlost "eww update music-hover=false"
+    :onclick "playerctl "
+    :onclick "playerctl --player=${player} play-pause"
+    :onscroll "bin/music_info seek {}"
+    :onmiddleclick "${browser} www.google.com/search?q='${pctl.artist}' & disown"
+    :onrightclick "hyprctl dispatch workspace 5 & change-bg 'music' & disown"
+    (box
+      :class "album-art ${music-hover ? "album-art-hover" : ""}"
+      :style "background-image: url('${matches("${pctl.status}", "Playing") ? album-art-path : playerctl}');"
+      :tooltip "  » 󰠃 ${pctl.artist}  󰎆 ${pctl.title} "
+      (circular-progress
+        :class "tr-a album-art-progress ${music-hover ? "album-art-progress-hover" : ""}"
+        :value {progress >= 0 && progress <= 100 ? progress : 0}
+        :start-at 75
+        :thickness "${music-hover ? 6 : 4}"
+        :clockwise true
+      )
+    )
+  )
+)
+
+;; }}}
+
+
+(defwindow music
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
+  :geometry (geometry :anchor "top left" :x "0px" :width "1000px")
+  (box
+    :halign "start" :space-evenly false :spacing 0
+    :class "tr-m"
+    :style "margin-left: ${assistant-hover ? 100 : 5 }px;"
+    (music)
+  )
+)
+; 🎵 music: {{{
+
+(defpoll progress
+  :initial "0"
+  :interval "1s"
+  "bin/music_info progress"
+)
+(defvar player "spotify")
+(defvar album-art-path "/tmp/eww/album_art.png")
+(deflisten pctl
+  :initial '{ "status":"Paused", "volume":"1.0", "artist":"", "album":"", "title":""}'
+  'tail -F /tmp/eww/music.json 2> /dev/null'
+)
+(defvar playerctl `/home/alex/.config/eww/art/player.png`)
+
+
+(defwidget music []
+  (eventbox
+    :onhover "eww update music-hover=true"
+    :onhoverlost "eww update music-hover=false"
+    (box
+      :class "music-info ${music-hover ? "music-info-hover" : ""}"
+      :style "
+              padding-left: ${music-hover ? "1" : "0.8"}em;
+              padding-right: ${music-hover ? "1" : "0.6"}em;
+              transition: padding 0.25s ease-out;
+            "
+      :space-evenly false
+      :spacing 16
+      (slide-n-fade :direction "left" :bool music-hover
+        (eventbox
+          :class "tr-a music-progress-circle-icon-${matches("${pctl.status}", "Playing") ? "playing" : "paused" }"
+          :cursor "pointer"
+          :onclick "playerctl --player=${player} previous"
+          (label :text "󰒮")
+        )
+      )
+      (music-progress)
+      (slide-n-fade :direction "right" :bool music-hover
+        (eventbox
+          :class "tr-a music-progress-circle-icon-${matches("${pctl.status}", "Playing") ? "playing" : "paused" }"
+          :cursor "pointer"
+          :onclick "playerctl --player=${player} next"
+          (label :text "󰒭" )
+        )
+      )
+      (label
+        :class "tr-c music-${matches("${pctl.status}", "Playing") ? "artist" : "inactive" }"
+        :text "󰠃 ${pctl.artist}"
+        :tooltip " 󰠃 ${pctl.artist} "
+        :style "margin-left: ${music-hover ? "-2" : "-12"}px;"
+      )
+      (label
+        :class "tr-c music-${matches("${pctl.status}", "Playing") ? "album" : "inactive" }"
+        :text "󰀥 ${pctl.album}"
+        :tooltip " 󰀥 ${pctl.album} "
+        :limit-width 19
+        :style "${
+          "${pctl.title}" != "${pctl.album}" ?
+          "margin-left: -6px;" : "margin-top: -100px; margin-left: -1000px;"
+        }"
+      )
+      (label
+        :class "tr-c music-${matches("${pctl.status}", "Playing") ? "title" : "inactive" }"
+        :text " 󰎆 ${pctl.title}"
+        :limit-width 19
+        :tooltip " 󰎆 ${pctl.title} "
+        :style "${
+          "${pctl.title}" != "${pctl.album}" ?
+          "margin-left: -6px; margin-right: -20px;" : "margin-top: -100px; margin-left: -1000px;"
+        }"
+      )
+      (label
+        :class "tr-c music-${matches("${pctl.status}", "Playing") ? "single" : "inactive" }"
+        :text "󰓏 ${pctl.album}"
+        :tooltip " 󰓏 ${pctl.album} "
+        :style "${
+          "${pctl.title}" == "${pctl.album}" ?
+          "margin-left: -38px; margin-right: -6px;" : "margin-top: -100px; margin-left: -1000px;"
+        }"
+      )
+      (slide-n-fade
+        :direction "left"
+        :bool music-hover
+        (music-volume
+          :value {round(pctl.volume * 100,0)}
+        )
+      )
+    )
+  )
+)
+
+
+(defwidget music-progress []
+  (box :class "music-progress" :space-evenly false :spacing 0
+       :style "margin: 0 -9px;"
+   (circular-progress
+      :class "music-progress-circle${matches("${pctl.status}", "Playing") ? "" : "-paused" }"
+      :value {progress >= 0 && progress <= 100 ? progress : 0}
+      :start-at 75
+      :thickness 2
+      :clockwise true
+      (box :class "music-progress-circle-icon"
+        (eventbox
+          :class "tr-a music-progress-circle-icon-${matches("${pctl.status}", "Playing") ? "playing" : "paused" }"
+          :onclick "playerctl --player=${player} play-pause"
+          :onscroll "bin/music_info seek {}"
+          :cursor "pointer"
+          (label :text "${matches("${pctl.status}", "Playing") ? "󰏦" : "󰐍"}")
+        )
+      )
+    )
+  )
+)
+
+(defwidget music-volume [value]
+  (eventbox
+      :onclick "playerctl --player=${player} volume 1"
+      :onmiddleclick "playerctl --player=${player} volume 0.01"
+      :onrightclick "playerctl --player=${player} volume 0"
+      :onscroll "bin/music_info volume {} 0.1"
+      :cursor "pointer"
+    (box :style "margin-right: 4px;" :class "tr-c ramp-${
+              value < 1   ? "1" :
+              value < 30  ? "2" :
+              value < 40  ? "3" :
+              value < 50  ? "4" :
+              value < 60  ? "5" :
+              value < 70  ? "6" :
+              value < 80  ? "7" :
+              value < 90  ? "8" :
+              value < 99  ? "9" : "10"
+          }"
+      (circular-progress
+        :class "tr-c music-progress-circle"
+        :value value
+        :start-at 75
+        :thickness 2
+        :clockwise false
+        (label
+          :tooltip "  ${value}% "
+          :text {
+            value == 0  ? "󰖁" :
+            value < 35  ? "󰕿" :
+            value < 65  ? "󰖀" : "󰕾"
+          }
+          :style
+          "
+            font-size: ${value > 0 && value < 65 ? "22" : "20"}px;
+            margin: ${
+              value > 0 && value < 35 ? "8px 11px 7px 9px" :
+                           value < 65 ? "6px 9px 4px 7px" : "6px 6px 5px 7px"
+            };
+          "
+        )
+      )
+    )
+  )
+)
+
+; }}}
+; 🎤 audio: {{{
+
+(deflisten source
+  :initial "80"
+  'tail -F /tmp/eww/source 2> /dev/null'
+)
+(deflisten sink
+  :initial "69"
+  'tail -F /tmp/eww/sink 2> /dev/null'
+)
+(defpoll source-name
+  :initial "Scarlett"
+  :interval "5s"
+  'bin/pulse_info get_name source'
+)
+(defpoll sink-name
+  :initial "WH-1000XM4"
+  :interval "5s"
+  'bin/pulse_info get_name sink'
+)
+(defvar audio-hover false)
+
+(defwidget audio []
+  (eventbox
+    :onhover "eww update audio-hover=true"
+    :onhoverlost "eww update audio-hover=false"
+    (box
+      :class "audio ${audio-hover ? 'audio-hover' : ''}"
+      :space-evenly false :spacing 10
+      (audio-control
+        :content "source"
+        :value source
+        :name "${source-name}"
+        :icon-off ""
+        :icon-on ""
+      )
+      (audio-control
+        :content "sink"
+        :value sink
+        :name "${sink-name}"
+        :icon-on "󰓃"
+        :icon-off "󰓄"
+      )
+      (bluetooth-status :value sink)
+    )
+  )
+)
+
+(defwidget audio-control [content value name icon-off icon-on]
+  (eventbox
+    :class "audio-${content}"
+    :onclick "bin/pulse_info set_default ${content} & disown"
+    :onmiddleclick "kitty --title='terminalfloat' -e pulsemixer & disown"
+    :onrightclick "bin/pulse_info mute ${content} & disown"
+    :onscroll "bin/pulse_info change_volume ${content} {} & disown"
+    :cursor "pointer"
+    :tooltip "  ${icon-on} ${content}: ${value}% "
+    (box :space-evenly false :spacing 9
+      :class "tr-c audio-volume ramp-${
+          value < 1   ? "1" :
+          value <= 10  ? "2" :
+          value <= 20  ? "4" :
+          value <= 30  ? "4" :
+          value <= 40  ? "5" :
+          value <= 50  ? "6" :
+          value <= 60  ? "8" :
+          value <= 70  ? "9" :
+          value <= 80  ? "10" :
+          value <= 90  ? "11" : "12"
+      }"
+      (circular-progress
+        :class "music-progress-circle"
+        :value {value <= 100 ? value : 100}
+        :start-at 75
+        :thickness 2
+        :clockwise false
+        (label
+          :class "audio-${content}-icon${value == 0 ? "-inactiveFix" : ""}"
+          :text { value == 0  ? "${icon-off}" : "${icon-on}" }
+        )
+      )
+      (slide-n-fade :bool audio-hover :direction "right"
+        (label :class "audio-${content}-text" :text name)
+      )
+    )
+  )
+)
+
+(defwidget bluetooth-status [value]
+  (label
+    :class "tr-c ${matches(sink-name, "WH-1000XM4") ? "" : "music-inactive"}"
+    :text "${matches(sink-name, "WH-1000XM4") ? "󰂯 " : "󰂲 "}"
+    :style "margin-left: -2px; margin-top: 2px;"
+    :tooltip " Bluetooth ${matches(sink-name, "WH-1000XM4") ? "Connected" : "Disconnected"}  "
+  )
+)
+
+; }}}
+
+(defwindow workspaces
+  :monitor 0 :stacking "bottom" :exclusive false :focusable false
+  :geometry (geometry :anchor "center right" :x "11%" :y "0px")
+  (workspaces)
+)
+;; 👾 workspaces: {{{
+
+(defvar ws-hover false)
+(defvar ws-h1 false)
+(defvar ws-h2 false)
+(defvar ws-h3 false)
+(defvar ws-h4 false)
+(defvar ws-h5 false)
+(defvar ws-h6 false)
+(defvar ws-h7 false)
+(defvar ws-h8 false)
+(defvar ws-h9 false)
+(defvar ws-h10 false)
+(deflisten active-ws
+  :initial "5"
+  'tail -F /tmp/eww/workspace 2> /dev/null'
+)
+(deflisten occupied
+  :initial "5"
+  'tail -F /tmp/eww/occupied 2> /dev/null'
+)
+
+(defwidget workspace [icon num desc hover]
+  (eventbox
+    :onhover "eww update ws-h${num}=true"
+    :onhoverlost "eww update ws-h${num}=false"
+    :onclick "${num == "5" ? "change-bg 'music';" : "change-bg;"} hyprctl dispatch workspace ${num} & disown"
+    :cursor "pointer"
+    :onmiddleclick "hyprctl dispatch workspace ${num} & disown"
+    :tooltip "  ${desc}  "
+    (box
+      :style "background-image: url('art/ws-icons/${icon}${
+                hover ? "-hover" :
+                matches(active-ws,num) ? "-active" :
+                "${matches(occupied, "${num}") ? "" : "-empty"}"
+              }.svg');"
+      :class "workspace ws-${num}"
+    )
+  )
+)
+
+(defwidget workspaces []
+  (eventbox
+    :onhover "eww update ws-hover=true"
+    :onhoverlost "eww update ws-hover=false"
+    :onrightclick "hyprctl dispatch workspace previous"
+    (box
+      :class "tr-a workspacesbox ${ws-hover ? "workspacesbox-hover" : ""}"
+      :halign "center" :space-evenly false :spacing 10
+      :orientation "${active-ws == "5" ? "horizontal" : "vertical"}"
+      :style "${active-ws == "5" ?
+          "
+          margin-right: 38px;
+          margin-top: 260px;
+          padding: 11px 15px 0px 15px;
+          "
+        : "" }"
+      (workspace :icon "learn"  :num "1" :hover ws-h1 :desc "Home 🏡")
+      (workspace :icon "learn"    :num "2" :hover ws-h2 :desc " documents 'n such" )
+      (workspace :icon "learn"      :num "3" :hover ws-h3 :desc " primary desktop" )
+      (workspace :icon "learn" :num "4" :hover ws-h4 :desc " settings 'n secondary work" )
+      (workspace :icon "learn"    :num "5" :hover ws-h5 :desc "Music 🎸" )
+      (workspace :icon "music"    :num "6" :hover ws-h6 :desc "Theatre 📺" )
+      (workspace :icon "dna"    :num "7" :hover ws-h7 :desc " music" )
+      (workspace :icon "dna"    :num "8" :hover ws-h8 :desc "Social ☎️ " )
+      (workspace :icon "network"    :num "9" :hover ws-h9 :desc " music" )
+      (workspace :icon "network"    :num "10" :hover ws-h10 :desc " music" )
+    )
+  )
+)
+;; }}}
+
+(defwindow screenctl
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
+  :geometry (geometry :anchor "top right" :y "1260px")
+  (screenctl)
+)
+; 🔆 screenctl: {{{
+
+(defvar screenctl-hover false)
+(deflisten brightness
+  :initial 10
+  'tail -F /tmp/eww/brightness 2> /dev/null'
+)
+
+(defwidget screenctl []
+  (eventbox
+    :onhover "eww update screenctl-hover=true"
+    :onhoverlost "eww update screenctl-hover=false"
+    :onclick "bin/brightness night & disown"
+    :onscroll "bin/brightness adjust {} ${brightness} & disown"
+    :onrightclick "bin/brightness reset & disown"
+    :tooltip " ${
+        brightness == 10 ? " 󱩖  max brightness" :
+        brightness <= 4 ? " 󱩎 ${brightness}0% (night mode)" : " 󱩒  brightness: ${brightness}0%"
+    }  "
+    (box :space-evenly false :spacing 0
+      :class "tr-a screenctlbox ${screenctl-hover ? "screenctlbox-hover" : "" }"
+      :style "background-image: url('art/screenctl/brctl${screenctl-hover ? "-${brightness > 0 ? "${brightness}" : "10"}" : ""}.svg');"
+    )
+  )
+)
+
+; }}}
+
+(defwindow network
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
+  :geometry (geometry :anchor "top right" :y "80px" )
+  (network)
+)
+; 📶 network: {{{
+
+(defvar network-hover false)
+
+(defwidget network []
+  (eventbox
+    :onhover "eww update network-hover=true"
+    :onhoverlost "eww update network-hover=false"
+    (box
+      :space-evenly false :spacing 0
+      :class "tr-a networkbox ${network-hover ? "networkbox-hover" : "" }"
+      :style "
+          background-image: url('art/signal/signal${ network-hover ? "-hover" : "" }.svg');
+          margin-top: ${user-hover ? "120" : "30"}px;
+        "
+      (box :space-evenly false :spacing 0 :valign "center" :halign "center"
+        (net-down
+          :icon " "
+          :value {round(EWW_NET.en2ps0.NET_DOWN / 100000, 2)}
+          :bool network-hover
+        )
+        (net-up
+          :icon " "
+          :value {round(EWW_NET.en2ps0.NET_UP / 100000, 2)}
+          :bool network-hover
+        )
+        (ping)
+      )
+    )
+  )
+)
+
+(defwidget net-down [icon value bool]
+  (box :space-evenly false :spacing 0 :tooltip "   ${value} Mbps "
+    :class "net net-down${bool ? "-hover" : "" } ramp-${
+      value < 1   ? "2"  :
+      value < 10  ? "3"  :
+      value < 20  ? "4"  :
+      value < 30  ? "6"  :
+      value < 50  ? "7"  :
+      value < 80  ? "9"  :
+      value < 130 ? "11" : "12"
+    }"
+    (label :text icon)
+  )
+)
+
+(defwidget net-up [icon value bool]
+  (box :space-evenly false :spacing 0 :tooltip "   ${value} Mbps "
+    :class "net net-up${bool ? "-hover" : "" } ramp-${
+      value < 0.01 ? "2"  :
+      value < 0.1  ? "3"  :
+      value < 1    ? "4"  :
+      value < 2    ? "6"  :
+      value < 4    ? "7"  :
+      value < 8    ? "9"  :
+      value < 16   ? "11" : "12"
+    }"
+    (label :text icon)
+  )
+)
+
+(defpoll ping
+  :initial "0"
+  :interval "3s"
+  `bin/ping`
+)
+(defwidget ping []
+  (box
+    :class "net net-ping${network-hover ? "-hover" : "" }"
+    :space-evenly false :spacing 0 :valign "center"
+    :tooltip "   ${ping != 0 ? "${ping} ms" : "determining..."} "
+    (label
+      :class "tr-a ramp-${
+        ping < 10  ? "3" :
+        ping < 30  ? "5" :
+        ping < 70  ? "8" :
+        ping < 120 ? "9" :
+        ping < 200 ? "11" : "12"
+      }"
+      :text " ${ping}"
+    )
+  )
+)
+; }}}
+
+
+(defwindow dunst
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
+  :geometry (geometry :anchor "bottom right" :y "10%" )
+  (dunst)
+)
+; 🔔 dunst: {{{
+
+(defvar dunst-hover false)
+(defvar dunst-active true)
+(defpoll dunst-count
+  :interval "1s"
+  :initial "0"
+  'dunstctl count waiting'
+)
+
+(defwidget dunst []
+  (eventbox
+    :onhover "eww update dunst-hover=true"
+    :onhoverlost "eww update dunst-hover=false"
+    :onclick "eww update dunst-active=true & dunstctl set-paused false & disown"
+    :onmiddleclick "dunstctl close-all"
+    :onrightclick "eww update dunst-active=false & dunstctl set-paused true & disown"
+    :tooltip " ${dunst-active ? "right click to silence  " : "${dunst-count} waiting"} "
+    (box :space-evenly false :spacing 0
+      :class "tr-a dunstbox ${dunst-hover ? "dunstbox-hover" : "" }"
+      :style "background-image: url('art/dunst/${dunst-active ? "active" : "inactive"}${dunst-hover ? "-hover" : ""}.svg');"
+      (box
+        :valign "start"
+        :class "${dunst-hover ? "" :
+                  "dunst-count${dunst-count > 9 ? "-alert" :
+                    "${dunst-count == 0 ? "-empty" : ""
+                    }"
+                  }"
+                }"
+        "${dunst-hover ? "" :
+          "${dunst-count > 0 ? "${dunst-count < 10 ? "${dunst-count}" :
+            " "}" : " "
+          }"
+        }"
+      )
+    )
+  )
+)
+
+
+;}}}
+
+
+(defwindow systemctl
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
+  :geometry (geometry :anchor "bottom right" :y "1255px" )
+  (systemctl)
+)
+; 🎛️ systemctl: {{{
+
+(defvar systemctl-hover false)
+
+(defwidget systemctl []
+  (eventbox
+    :onhover "eww update systemctl-hover=true"
+    :onhoverlost "eww update systemctl-hover=false"
+    :onrightclick "~/.local/bin/lock suspend & disown"
+    :onmiddleclick "systemctl poweroff"
+    (box :space-evenly false :spacing 0
+      :class "tr-a systemctlbox ${systemctl-hover ? "systemctlbox-hover" : "" }"
+      :style " background-image: url('art/systemctl/mitochondria${systemctl-hover ? "-active" : ""}.svg'); "
+      :tooltip "   mitochondria, the powerhouse of the cell "
+      (systemctl-option
+        :option "restart"
+        :icon ""
+        :command "systemctl reboot"
+      )
+      (systemctl-option
+        :option "poweroff"
+        :icon ""
+        :command "systemctl poweroff"
+      )
+      (systemctl-option
+        :option "lock"
+        :icon ""
+        :command "lock & disown"
+      )
+    )
+  )
+)
+
+(defwidget systemctl-option [option icon command]
+  (eventbox
+    :cursor "pointer"
+    :tooltip " ${icon}  ${option}  "
+    :onclick command
+    (label
+      :class "systemctl-${systemctl-hover ? "${option}" : "hide"}"
+      :text icon
+    )
+  )
+)
+
+; }}}
+
+
+(defwindow pacman
+  :monitor 0 :stacking "bg" :exclusive true :focusable false
+  :geometry (geometry :anchor "bottom right" :x "-22px" :y "170px" )
+  (pacman)
+)
+; 📦 pacman: {{{
+
+(defpoll upgrades :initial 0 :interval "1m" 'paru -Qu | wc -l')
+(defvar pacman-hover false)
+
+(defwidget pacman []
+  (eventbox
+    :cursor "pointer"
+    :onhover "eww update pacman-hover=true"
+    :onhoverlost "eww update pacman-hover=false"
+    :onclick 'kitty --title="terminalfloat" -e "paru" & disown'
+    (label
+      :class "tr-a pacman ramp-${
+             upgrades < 1  ? "3" :
+             upgrades < 4  ? "4" :
+             upgrades < 5  ? "5" :
+             upgrades < 10 ? "6" :
+             upgrades < 20 ? "8" :
+             upgrades < 30 ? "9" :
+             upgrades < 40 ? "11" : "12"
+      } pacman${pacman-hover ? "-hover" : ""}"
+      :markup "<small>${upgrades <= 1 ? " ": "${upgrades} "}</small>"
+      :tooltip "  ${upgrades <= 1 ? "  synced  ": "   ${upgrades} available upgrades  " }"
+      :style "margin: 30px; margin-bottom: ${dunst-hover ? "92px" : "30px"};"
+    )
+  )
+)
+
+; }}}
