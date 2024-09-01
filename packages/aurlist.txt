@@ -1,0 +1,7 @@
+1password
+1password-cli
+eww
+spotify
+webcord
+yay
+yay-debug

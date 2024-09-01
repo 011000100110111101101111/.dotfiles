@@ -1,6 +1,4 @@
-# And so it starts again
-
-
+# And so it starts again (FYI most of these configs are stolen and altered)
 
 ## Screenshots
 
@@ -12,6 +10,17 @@
 ![blank](./exhibition/codeterminal.png)
 
 # Setup (WIP)
+
+## Backing up / installing from package list
+```
+# Backing up to list
+sudo pacman -Qqen > pacmanlist.txt
+sudo pacman -Qqem > aurlist.txt
+
+# Installing from list
+sudo pacman -S --needed - < pacmanlist.txt
+yay -S --needed - < aurlist.txt
+
 
 
 ## BIOS Updates
