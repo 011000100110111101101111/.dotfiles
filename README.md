@@ -2,6 +2,18 @@
 
 
 
+## Screenshots
+
+
+![blank](./exhibition/blankbackground.png)
+![blank](./exhibition/keybindshortcuts.png)
+![blank](./exhibition/scratchpadkitty.png)
+![blank](./exhibition/firefox.png)
+![blank](./exhibition/codeterminal.png)
+
+# Setup (WIP)
+
+
 ## BIOS Updates
 ```
 sudo pacman -Syu fwupd
@@ -96,4 +108,14 @@ mv static/*.ttf /home/alex/.local/share/fonts
 mv DancingScript-VariableFont_wght.ttf /home/alex/.local/share/fonts/
 fc-cache -fv
 ```
+
+## New Hyprland Nvidia specific stuff
+
+```
+# VA-API hardware video acceleration for electron apps
+sudo pacman -Syu libva-nvidia-driver
+# Add following to hyprland config
+env = NVD_BACKEND,direct
+```
+
 

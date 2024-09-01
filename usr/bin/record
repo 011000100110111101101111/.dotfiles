@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# Simplified script for screen recording using wf-recorder
+
+# Default output directory
+dir="$HOME/media/recordings"
+s_flag=""
+s_label="fullscreen"
+
+# Parse options
+while getopts 's:d:' flag; do
+    case "$flag" in
+    s) s_flag="$OPTARG" ;;
+    d) dir="$OPTARG" ;;
+    *) exit 1 ;;
+    esac
+done
+
+# If slurp is selected, choose a region
+if [[ "$s_flag" == "slurp" ]]; then
+    slurp="$(slurp)"
+    g="-g $slurp"
+    s_label=$(echo "$slurp" | awk -F ' ' '{print $2}')
+else
+    g=""
+fi
+
+# Verify that a region was selected
+if [[ "$s_label" == "" ]]; then
+    echo "No region selected, aborting."
+    exit 1
+fi
+
+# Generate the output filename
+output="$dir/$(date "+%m-%d-%y %H:%M ($s_label)").mp4"
+
+# Ensure the directory exists
+mkdir -p "$dir"
+
+# Remove the output file if it already exists
+if [[ -s "$output" ]]; then
+    rm "$output"
+fi
+
+# Notify that recording is starting
+echo "Recording to $output..."
+
+# Start recording with wf-recorder
+wf-recorder "$g" -f "$output"
+
+# Notify that recording has ended
+echo "Screen recording ended."

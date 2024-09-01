@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+killall eww -9
+
+hyprctl dispatch workspace 1
+layout -n 1
+
+sleep 2
+#notify-send -a "attention" -u low "$USER" "🏗️ Initializing Nexus 🏗️"
+sleep 2
+
+
+eww daemon
+eww open-many \
+	today \
+	assistant \
+	computer \
+	music albumArt
+
+
+#hyprctl dispatch workspace 7
+#gnome-pomodoro &
+#layout -n 7
+#sleep 2
+#hyprctl dispatch workspace 8
+#webcord &
+#sleep 6
+#hyprctl disptach workspace 7
+#sleep 1
+#hyprctl dispatch workspace 5
+#spotify &
+#sleep 2
+#hyprctl dispatch workspace 9
+#layout -n 9
+#sleep 2
+#hyprctl dispatch workspace 10
+#layout -n 10
+#sleep 2
+#hyprctl dispatch workspace 9
+#hyprctl dispatch workspace 7
+#hyprctl dispatch workspace 1
+#notify-send -a "attention" -u normal "$USER@$HOSTNAME" "Welcome Back 🧠"
+#sleep 5
+#playerctl play
+
+
+#sleep 2
+#glava -e "radial_rc.glsl" &
+#sleep 2
+

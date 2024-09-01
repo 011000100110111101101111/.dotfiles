@@ -9,7 +9,7 @@
   :initial 0
   'while true; do echo 0; sleep 5; echo 1; sleep 5; done'
 )
-(defvar browser "microsoft-edge-stable")
+(defvar browser "firefox")
 (defvar terminal "kitty")
 
 ;; }}}
@@ -919,9 +919,9 @@
   (eventbox
     :onhover "eww update assistant-hover=true"
     :onhoverlost "eww update assistant-hover=false"
-    :onclick "${browser} https://chat.openai.com/chat?model=gpt-4 & disown"
+    :onclick "${browser} https://chatgpt.com/ & disown"
     :onrightclick "${browser} https://mail.google.com/mail/u/0/#inbox & disown"
-    :onmiddleclick "${browser} https://mail.google.com/mail/u/1/#inbox & disown"
+    :onmiddleclick "${browser} https://calendar.google.com/calendar/u/0/r & disown"
     (box
       :class "assistantbox ${assistant-hover ? "assistantbox-hover" : ""}"
       :style "background-image: url('${assistant}')"

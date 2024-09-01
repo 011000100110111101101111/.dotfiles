@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+killall eww -9
+playerctl pause
+# change-bg "lock" 2>&1 /dev/null
+sleep 1
+
+#swaylock -C "$HOME/.config/swaylock/config"
+
+#change-bg "music"
+# hyprctl dispatch workspace 2
+# sleep 1
+# hyprctl dispatch workspace 1
+# sleep 1
+# hyprctl dispatch workspace 10
+# sleep 1
+# hyprctl dispatch workspace 9
+# sleep 1
+# hyprctl dispatch workspace 8
+# sleep 1
+# hyprctl dispatch workspace 7
+sleep 1
+#
+ps -ef | rg weather_info | rg -v rg | awk '{print $2}' | xargs kill
+sleep 1
+eval "$HOME/.config/eww/bin/weather_info" &
+eval "$HOME/.config/eww/bin/date_info" &
+
+eww-open
+
+exit 0

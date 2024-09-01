@@ -407,6 +407,30 @@
           }
         ]
       }
+    },
+    "Firefox": {
+      "_hidden": false,
+      "Themes": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "CTRL SHIFT 1",
+            "label": "Toggle Left Bar Open (Bookmarks/Tabs)"
+          },
+          {
+            "value": "CTRL SHIFT 2",
+            "label": "Toggle Right Bar Open (Menu/Extensions)"
+          },
+          {
+            "value": "CTRL SHIFT 3",
+            "label": "Toggle Top Bar Open (Search)"
+          },
+          {
+            "value": "CTRL SHIFT 4",
+            "label": "Toggle Zen Mode"
+          }
+        ]
+      }
     }
   }
 }
