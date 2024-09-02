@@ -1,9 +1,9 @@
 [global]
-monitor = 2
+monitor = 0
 enable_posix_regex = true
 origin = "bottom-right"
 width = 375
-offset = "85x600"
+offset = "800x1358"
 notification_limit = 1
 progress_bar = true
 progress_bar_height = 10

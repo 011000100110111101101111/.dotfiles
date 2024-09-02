@@ -18,13 +18,19 @@ eww open-many \
 
 hyprctl dispatch workspace 5
 spotify &
-sleep 2
+sleep 3
+hyprctl dispatch workspace 6
+code ~/.dotfiles &
+sleep 4
+hyprctl dispatch workspace 7
+firefox https://chatgpt.com/ &
+sleep 3
 hyprctl dispatch workspace 8
 webcord &
 sleep 6
 hyprctl dispatch workspace 9
 1password &
-sleep 2
+sleep 10
 hyprctl dispatch workspace 1
 layout -n 1
 notify-send -a "attention" -u normal "$USER@$HOSTNAME" "Welcome Back 🧠"

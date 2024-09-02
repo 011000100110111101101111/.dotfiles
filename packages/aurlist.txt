@@ -1,6 +1,7 @@
 1password
 1password-cli
 eww
+kando-bin
 spotify
 webcord
 yay
