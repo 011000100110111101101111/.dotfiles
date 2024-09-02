@@ -6,7 +6,7 @@ hyprctl dispatch workspace 1
 layout -n 1
 
 sleep 2
-#notify-send -a "attention" -u low "$USER" "🏗️ Initializing Nexus 🏗️"
+notify-send -a "attention" -u low "$USER" "🏗️ Initializing Nexus 🏗️"
 sleep 2
 
 
@@ -15,7 +15,8 @@ eww open-many \
 	today \
 	assistant \
 	computer \
-	music albumArt
+	music albumArt \
+	workspaces
 
 
 #hyprctl dispatch workspace 7

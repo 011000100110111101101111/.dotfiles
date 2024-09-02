@@ -363,7 +363,7 @@
 
 (defwindow computer
   :monitor 0 :stacking "bg" :exclusive false :focusable false
-  :geometry (geometry :anchor "top right" :x "100px" :width "800px")
+  :geometry (geometry :anchor "top right" :x "220px" :width "800px")
   (box
     :halign "end" :space-evenly false :spacing 0
     :class "tr-m"
@@ -932,8 +932,8 @@
 
 
 (defwindow albumArt
-  :monitor 2 :stacking "bg" :exclusive false :focusable false
-  :geometry (geometry :anchor "bottom right" :x "84%" :y "72%")
+  :monitor 0 :stacking "bg" :exclusive false :focusable false
+  :geometry (geometry :anchor "bottom right" :x "-24px" :y "0px")
   (albumArt)
 )
 ;; 💿 albumArt {{{
@@ -1238,7 +1238,7 @@
 
 (defwindow workspaces
   :monitor 0 :stacking "bottom" :exclusive false :focusable false
-  :geometry (geometry :anchor "center right" :x "11%" :y "0px")
+  :geometry (geometry :anchor "center right" :x "50px" :y "0px")
   (workspaces)
 )
 ;; 👾 workspaces: {{{
@@ -1302,12 +1302,10 @@
       (workspace :icon "learn"    :num "2" :hover ws-h2 :desc " documents 'n such" )
       (workspace :icon "learn"      :num "3" :hover ws-h3 :desc " primary desktop" )
       (workspace :icon "learn" :num "4" :hover ws-h4 :desc " settings 'n secondary work" )
-      (workspace :icon "learn"    :num "5" :hover ws-h5 :desc "Music 🎸" )
-      (workspace :icon "music"    :num "6" :hover ws-h6 :desc "Theatre 📺" )
+      (workspace :icon "music"    :num "5" :hover ws-h5 :desc "Music 🎸" )
+      (workspace :icon "dotfiles"    :num "6" :hover ws-h6 :desc "Dotfiles 📺" )
       (workspace :icon "dna"    :num "7" :hover ws-h7 :desc " music" )
-      (workspace :icon "dna"    :num "8" :hover ws-h8 :desc "Social ☎️ " )
-      (workspace :icon "network"    :num "9" :hover ws-h9 :desc " music" )
-      (workspace :icon "network"    :num "10" :hover ws-h10 :desc " music" )
+      (workspace :icon "network"    :num "8" :hover ws-h8 :desc "Social ☎️ " )
     )
   )
 )
@@ -1440,7 +1438,7 @@
 
 (defwindow dunst
   :monitor 0 :stacking "bg" :exclusive false :focusable false
-  :geometry (geometry :anchor "bottom right" :y "10%" )
+  :geometry (geometry :anchor "bottom right" :y "86%" )
   (dunst)
 )
 ; 🔔 dunst: {{{
@@ -1541,7 +1539,7 @@
 
 (defwindow pacman
   :monitor 0 :stacking "bg" :exclusive true :focusable false
-  :geometry (geometry :anchor "bottom right" :x "-22px" :y "170px" )
+  :geometry (geometry :anchor "bottom right" :x "100px" :y "170px" )
   (pacman)
 )
 ; 📦 pacman: {{{

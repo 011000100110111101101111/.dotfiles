@@ -332,12 +332,12 @@ $ease-out-snap: cubic-bezier(0.25, 0.575, 0.565, 1.314);
   background-repeat: no-repeat;
   background-size: 102%;
   background-position: center;
-  min-width: 200px;
-  min-height: 200px;
+  min-width: 180px;
+  min-height: 180px;
   border: 2px solid $blu-1;
   border-radius: 50%;
   margin: 30px;
-  opacity: 0.8;
+  opacity: 1;
   box-shadow: 0 0 6px 1px rgba($blu-0, 0.69);
 
   &-hover {
