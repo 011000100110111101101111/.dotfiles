@@ -933,7 +933,7 @@
 
 (defwindow albumArt
   :monitor 0 :stacking "bg" :exclusive false :focusable false
-  :geometry (geometry :anchor "bottom right" :x "-24px" :y "0px")
+  :geometry (geometry :anchor "bottom right" :x "-30px" :y "0px")
   (albumArt)
 )
 ;; 💿 albumArt {{{
